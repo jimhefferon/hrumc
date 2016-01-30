@@ -9,57 +9,14 @@
 % --- Class structure: initial code part
 % ---
 
-% what is meeting? 
-% \def\@committeename{}
-% \newcommand{\setcommittee}[1]{\def\@committee{#1}}
-% \newcommand{\show@committee}{\@committee}
-
-% who to? 
-% \def\@memoto{Self}
-% \newcommand{\setmemoto}[1]{\def\@memoto{#1}}
-% \newcommand{\show@memoto}{\@memoto}
-% % what role do they have (e.g., chair)
-% \newcommand{\role}[2]{#1~(#2)}
-% \newcommand{\chair}[1]{\role{#1}{Chair}}
-% \newcommand{\secretary}[1]{\role{#1}{Secretary}}
-
-% % who from? 
-% \global\let\@memofromt\@empty
-% \newcommand{\setmemofrom}[1]{\def\@memofrom{#1}}
-% \let\memofrom\setmemofrom %
-% \newcommand{\show@memofrom}{\@memofrom}
-
-% % subject?
-% \global\let\@memosubject\@empty
-% \newcommand{\setmemosubject}[1]{\def\@memosubject{#1}}
-% \newcommand{\show@memosubject}{\@memosubject}
-
-% % who to cc?
-% \global\let\@memocc\@empty
-% \newcommand{\setmemocc}[1]{\def\@memocc{#1}}
-% \let\memocc\setmemocc %
-% \newcommand{\show@memocc}{\@memocc}
-
-% % what day is it?
-% \def\@date{\today}
-% \newcommand{\setdate}[1]{\def\@date{#1}}
-% \newcommand{\show@date}{\@date}
 
 % --- Class structure: declaration of options part
 % ---
 % This class extends the article class
-% Read all the documentclass options; pass them to article, unless the file
-% named "<currentoption>.memo" exists, in which case it is loaded
-%\DeclareOption*{\InputIfFileExists{\CurrentOption.min}{}{%
-%    \PassOptionsToClass{\CurrentOption}{article}}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
-% \DeclareOption*{\InputIfFileExists{\CurrentOption.memo}{}{%
-%     \PassOptionsToClass{\CurrentOption}{article}}}
 
 % --- Class structure: execution of options part
 % ---
-% \ExecuteOptions{twocolumn}
-
 \ProcessOptions \relax
 
 % --- Class structure: declaration of options part
@@ -69,6 +26,20 @@
 % --- Class structure: main code part
 % ---
 
+% ....... conditional compilation .....
+\RequirePackage{etoolbox}
+
+% call with pdflatex \def\printabstracts{}\input{hrumc2016} to get them
+\newbool{PrintAbstracts}
+\ifdefined\printabstracts
+  \booltrue{PrintAbstracts}
+\else
+  \boolfalse{PrintAbstracts}
+\fi
+
+
+
+% ...... fonts .........
 % \usepackage{tgpagella}
 \usepackage[T1]{fontenc}
 \usepackage{fbb}
@@ -109,10 +80,7 @@
 \AtBeginDocument{\thispagestyle{empty}}
 
 
-
-% ........ Abstracts .............
-\RequirePackage{enumitem}
-\RequirePackage{ragged2e}  % for RaggedRight
+% ........ Hyper references .............
 
 \RequirePackage{hyperref}
 \hypersetup{
@@ -136,6 +104,12 @@
     urlcolor=black           % color of external links
 }
 
+
+% ........ Abstracts .............
+\RequirePackage{enumitem}
+\RequirePackage{ragged2e}  % for RaggedRight
+
+
 \newcommand{\abstracttime}[1]{#1}
 \newcommand{\abstracttitle}[1]{\textit{#1}}
 \newcommand{\abstractlevel}[1]{\textrm{(Level~#1)}}
@@ -145,21 +119,20 @@
 %  #1 title
 %  #2 author
 %  #3 level
-\renewenvironment{abstract}[3]{%
-  % \begin{description}[font=\normalfont,leftmargin=2em,labelwidth=0em] 
-    \RaggedRight
-    \abstracttitle{#1}
-    \abstractlevel{#3}
-    \abstractspeaker{#2}
-}{%
-  % \end{description}
+%  #4 abstract body
+\renewcommand{\abstract}[4]{% \newcommand is \long by default, #4 can have pars
+  \RaggedRight
+  \abstracttitle{#1}
+  \abstractlevel{#3}
+  \abstractspeaker{#2}
+  \ifbool{PrintAbstracts}{#4}{}
 }
 
 % \at  abstract and time
 %  #1 time
 %  #2 name of file containing the abstract
 \newcommand{\at}[2]{%
-  \begin{description}[font=\normalfont,leftmargin=2em,labelwidth=0em, ] 
+  \begin{description}[font=\normalfont,leftmargin=2em,labelwidth=0em,topsep=0ex plus 1pt] 
     \RaggedRight
     \item[\abstracttime{#1}]
     \href{http://joshua.smcvt.edu/hrumc/#2.pdf}{\input{#2}}

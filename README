@@ -4,5 +4,9 @@ README file for HRUMC
 LaTeX files for program for the Hudson River Undergraduate Mathematics 
 Research Conference.
 
-Abstracts at put one per file, as in jones1.tex.  Then run pdflatex 
-on the hrumc2016.tex file.
+Abstracts at put one per file, as in jones1.tex.  
+
+To get a printout without abstracts:
+  pdflatex hrumc2016
+To get a printout with abstracts:
+  pdflatex "\def\printabstracts{}\input{hrumc2016}"
