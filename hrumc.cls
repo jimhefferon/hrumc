@@ -186,3 +186,38 @@
   \end{@twocolumnfalse}
 ] 
 }
+
+% .......... campus map .............
+\RequirePackage{graphicx}
+\usepackage{tikz}
+\newcommand{\circled}[2][]{% http://tex.stackexchange.com/a/218842/339
+  \tikz[baseline=(char.base)]{%
+    \node[shape = circle, fill=red!20, draw, inner sep = 2.8pt]
+    (char) {\phantom{\ifblank{#1}{#2}{#1}}};%
+    \node at (char.center) {\makebox[0pt][c]{\large #2}};}}
+\robustify{\circled}
+\newsavebox{\mapbox}
+\savebox{\mapbox}{\includegraphics{map.png}} % map is 7.681 by 8.194 inches
+\newlength{\mapwidth}
+\newlength{\mapheight}
+\settowidth{\mapwidth}{\usebox{\mapbox}}
+\settoheight{\mapheight}{\usebox{\mapbox}}
+\newcommand{\map}{
+  \begin{center}
+    \setlength{\unitlength}{1.0in}\large
+    \begin{picture}(7.681,8.194)
+      \put(0,0){\usebox{\mapbox}}
+      \put(-.2,1.4){\circled{1}\hspace{0.75em}Interstate 89 quarter mile this way}
+      \put(-.2,1.05){\circled{2}\hspace{0.75em}Enter here, park on left}
+      \put(-.2,.7){\circled{3}\hspace{0.75em}McCarthy Arts building}
+      \put(-.2,.35){\circled{4}\hspace{0.75em}Saint Edmunds Hall (STE)}
+      \put(-.2,.0){\circled{5}\hspace{0.75em}Jeanmarie Hall (JEM)}
+      \put(-.2,-0.35){\circled{6}\hspace{0.75em}Dion Center}
+      \put(1,8){\circled{1}}
+      \put(1.6,5.3){\circled{2}}
+      \put(2.6,4.8){\circled{3}}
+      \put(2.55,3.6){\circled{4}}
+      \put(1.56,3.6){\circled{5}}
+      \put(4,3.5){\circled{6}}
+    \end{picture}
+  \end{center}}
