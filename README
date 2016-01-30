@@ -1,0 +1,8 @@
+README file for HRUMC
+2016 Jim Hefferon  jhefferon at smcvt.edu
+
+LaTeX files for program for the Hudson River Undergraduate Mathematics 
+Research Conference.
+
+Abstracts at put one per file, as in jones1.tex.  Then run pdflatex 
+on the hrumc2016.tex file.
