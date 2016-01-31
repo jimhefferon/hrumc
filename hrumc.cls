@@ -161,9 +161,9 @@
 \RequirePackage{tabularx}
 
 % \session  Title of session
-%  #1 session name
-%  #2 room
-%  #3 chair
+%  #1 session name e.g. "Algebra I"
+%  #2 room, e.g. "STE 106"
+%  #3 chair, e.g. "Leonard Euler"
 \newcommand{\session}[3]{%
   \begin{mdframed}[style=Framed]
     \color{bordercolor}
@@ -174,7 +174,10 @@
   \end{mdframed}%
 }
 
+
 \usepackage[overload]{textcase}
+% sessionhead  head for session one, session two, etc.
+%   #1  session name; 'one', 'two', etc.
 \newcommand{\sessionhead}[1]{%
 \clearpage %
 \twocolumn[
@@ -198,26 +201,124 @@
 \robustify{\circled}
 \newsavebox{\mapbox}
 \savebox{\mapbox}{\includegraphics{map.png}} % map is 7.681 by 8.194 inches
-\newlength{\mapwidth}
-\newlength{\mapheight}
-\settowidth{\mapwidth}{\usebox{\mapbox}}
-\settoheight{\mapheight}{\usebox{\mapbox}}
+% \newlength{\mapwidth}
+% \newlength{\mapheight}
+% \settowidth{\mapwidth}{\usebox{\mapbox}}
+% \settoheight{\mapheight}{\usebox{\mapbox}}
 \newcommand{\map}{
   \begin{center}
     \setlength{\unitlength}{1.0in}\large
     \begin{picture}(7.681,8.194)
       \put(0,0){\usebox{\mapbox}}
-      \put(-.2,1.4){\circled{1}\hspace{0.75em}Interstate 89 quarter mile this way}
-      \put(-.2,1.05){\circled{2}\hspace{0.75em}Enter here, park on left}
+      \put(-.2,1.4){\circled{1}\hspace{0.75em}Interstate 89 ia a quarter mile this way}
+      \put(-.2,1.05){\circled{2}\hspace{0.75em}Enter here, park on your left}
       \put(-.2,.7){\circled{3}\hspace{0.75em}McCarthy Arts building}
       \put(-.2,.35){\circled{4}\hspace{0.75em}Saint Edmunds Hall (STE)}
       \put(-.2,.0){\circled{5}\hspace{0.75em}Jeanmarie Hall (JEM)}
-      \put(-.2,-0.35){\circled{6}\hspace{0.75em}Dion Center}
+      \put(-.2,-0.35){\circled{6}\hspace{0.75em}Dion Center; register here}
       \put(1,8){\circled{1}}
       \put(1.6,5.3){\circled{2}}
       \put(2.6,4.8){\circled{3}}
-      \put(2.55,3.6){\circled{4}}
-      \put(1.56,3.6){\circled{5}}
+      \put(2.55,3.7){\circled{4}}
+      \put(1.56,3.7){\circled{5}}
       \put(4,3.5){\circled{6}}
     \end{picture}
   \end{center}}
+
+% ........ Inside cover ...........
+\newenvironment{scheduleoverview}{%
+  \begin{flushleft}
+    \large\textbf{Schedule overview}
+  \end{flushleft}\vspace{0.7ex}
+  \begin{center}
+  \renewcommand{\arraystretch}{1.2}  % space lines out a bit
+  \begin{tabular}{@{}r@{--}*{2}{l@{\hspace*{1.5em}}}l@{}}
+}{%
+  \end{tabular}
+  \end{center}
+}
+
+
+
+
+
+% ........ Welcome ..............
+\newcommand{\welcome}{
+\begin{flushleft}
+  \Large\textbf{Welcome!}
+\end{flushleft}
+Welcome to the twenty third annual 
+Hudson River Undergraduate Mathematics Conference (HRUMC), a
+mathematics conference designed primarily with students in mind. 
+Whether you are a student attending your first
+conference or an experienced speaker, we hope that you will find 
+this conference beneficial, rewarding, and inspiring, 
+and that you will make new friends and connections in the mathematics community.
+We hope to establish an atmosphere that sends
+the message, ``We are glad that you are joining the mathematics community!''
+
+We feature 15~minute talks by students and faculty, 
+and a longer invited address.
+Each year, we invite students and faculty from  
+universities and colleges in New York and New England to send abstracts
+for the short talks. 
+These talks describe research projects,
+independent study projects, or any other independent work by students 
+and faculty. 
+We hope that you will attend many talks that sound interesting to you, 
+and that you will learn a great deal.
+
+If you are attending the conference for the first time, don't feel overwhelmed.
+Spend a little time with this program and identify some talks that 
+grab your interest. 
+Plan on which talks you will attend.
+We set a strict schedule so you can easily go from room to room.
+If you are confused, just ask someone. 
+
+Notice that each of the short talks is designated as Level~1 or Level~2.
+Level~1 talks are accessible to all mathematics students and faculty, 
+while Level~2 talks are aimed at advanced undergraduates and faculty. 
+
+Please also check out the website for information about previous meetings, 
+pictures from this year's
+conference, and information about next year's conference:
+\href{http://www.skidmore.edu/hrumc}{http://www.skidmore.edu/hrumc}.
+
+The first HRUMC was held in 1994 at Siena College in Loudonville, NY.
+Without the dedication, diligence, talent, and enthusiasm of the local
+organizers and the student and faculty participants over the years, 
+HRUMC would not have become an annual tradition. 
+This conference has been successful because the students and faculty of the 
+participating institutions have made it successful. 
+We are delighted that you are here and hope you enjoy the conference.
+Keep in mind as you listen to the talks 
+that whether you are speaking this year or not, you can look forward to
+sharing your work at next year's conference, 
+hosted by Westfield State College.}
+
+\newcommand{\support}{%
+{\large\bfseries
+This conference would not be possible without the very generous financial 
+support provided by the Office of the Vice President for Academic Affairs 
+at Saint Michael's College, and by the Departments of Mathematics and
+Computer Science.
+
+We thank them for their support. 
+We also thank all of the
+student and faculty volunteers who contributed their time, talents, energy, 
+and enthusiasm.}}
+
+\newenvironment{hrumcsteering}{%
+  \begin{tabular}[t]{@{}l}
+    \textbf{HRUMC Steering Committee}     \\
+}{%
+  \end{tabular}
+}
+
+
+\newenvironment{localsteering}{%
+  \begin{tabular}[t]{@{}l}
+    \textbf{Local Steering Committee} \\
+}{%
+  \end{tabular}
+}

@@ -2,6 +2,50 @@
 
 \usepackage{lipsum}
 \begin{document}
+\newgeometry{left=1.25in,right=1.25in,bottom=1in,top=1in}
+\onecolumn
+% inside cover
+\begin{scheduleoverview}
+  8:30  &9:50am  &Registration             &Dion Center              \\
+  10:00 &10:55am &Session One               &St~Edmunds and Jeanmarie \\
+  11:05 &12:15pm &Welcome, invited address  &McCarthy Arts Center     \\
+  12:25 &1:30pm  &Lunch                     &Dion Center              \\
+  1:40  &2:55pm  &Session Two               &St~Edmunds and Jeanmarie \\
+  3:00  &3:25pm  &Coffee and refereshments  &Dion Center  \\
+  3:30  &4:25pm  &Session Three             &St~Edmunds and Jeanmarie 
+\end{scheduleoverview}
+\clearpage
+
+
+% welcome page
+{\setlength{\parskip}{1.5ex}
+\setlength{\parindent}{0ex}
+\welcome
+
+\vspace{2ex plus 1fil}
+\support
+
+\vspace{2ex plus 1fil}
+\begin{minipage}{\textwidth}
+  \begin{hrumcsteering}
+  Paul Friedman, Union College           \\
+  Jim Hef{}feron, Saint Michael's College  \\
+  Mohammad Javaheri, Siena College       \\
+  Emelie Kenney, Siena College           \\
+  Joe Kirtland, Marist College           \\
+  Allison Pacelli, Williams College      \\
+  David Vella, Skidmore College          \\
+  William Zwicker, Union College
+  \end{hrumcsteering}
+  \hspace{5em plus 1fil}
+  \begin{localsteering}
+  Jim Hef{}feron (chair) \\
+  Lloyd Simons  
+  \end{localsteering}
+\end{minipage}
+}
+\clearpage
+\restoregeometry
 
 \sessionhead{ONE}
 \session{Algebra III}{STE 106}{Fred McGuilicuddy}
@@ -44,6 +88,18 @@
 \at{\Ib}{jones1}
 \at{\Ic}{jones1}
 
+\session{Algebra III}{STE 106}{Fred McGuilicuddy}
+\at{\Ia}{jones1}
+\at{\Ib}{jones1}
+\at{\Ic}{jones1}
+
+\session{Algebra III}{STE 106}{Fred McGuilicuddy}
+\at{\Ia}{jones1}
+\at{\Ib}{jones1}
+\at{\Ic}{jones1}
+
+
+\sessionhead{Two}
 \session{Algebra III}{STE 106}{Fred McGuilicuddy}
 \at{\Ia}{jones1}
 \at{\Ib}{jones1}
