@@ -183,7 +183,7 @@
 \twocolumn[
   \begin{@twocolumnfalse}
     \begin{center} \color{standoutcolor}
-      \Large \textbf{\MakeTextUppercase{Session #1}} \\
+      \Large \textbf{\MakeTextUppercase{Parallel Sessions #1}} \\
       {\color{bordercolor}\rule{\textwidth}{1pt}}
     \end{center}\vspace{3ex}
   \end{@twocolumnfalse}
@@ -225,20 +225,76 @@
     \end{picture}
   \end{center}}
 
-% ........ Inside cover ...........
-\newenvironment{scheduleoverview}{%
-  \begin{flushleft}
-    \large\textbf{Schedule overview}
-  \end{flushleft}\vspace{0.7ex}
+
+% ........ Front cover ...........
+\newcommand{\fronttitle}{%
   \begin{center}
-  \renewcommand{\arraystretch}{1.2}  % space lines out a bit
-  \begin{tabular}{@{}r@{--}*{2}{l@{\hspace*{1.5em}}}l@{}}
+    \Large HRUMC XXIII \\[1.5ex]
+    \Huge\bfseries Hudson River\\
+          Undergraduate Mathematics Conference
+  \end{center}
+}
+
+\newenvironment{frontgraphic}{%
+  \begin{center}
+    \setlength{\unitlength}{1in}
+    \begin{picture}(0,2)
 }{%
-  \end{tabular}
+    \end{picture}
+  \end{center}
+}
+
+\newcommand{\frontfoot}{%
+  \begin{center}
+    \Large\bfseries Saint Michael's College \\
+     Colchester Vermont \\
+     2016-Apr-02
   \end{center}
 }
 
 
+
+% ........ Inside cover ...........
+\newcommand{\wifi}[2]{%
+  \begin{flushleft}
+    \large\bfseries Wifi information
+  \end{flushleft}
+  \hspace*{2em}The guest account is on the network name ``#1'' 
+     with the password ``#2''.
+}
+
+\newenvironment{scheduleoverview}{%
+  \begin{flushleft}
+    \large\textbf{Schedule overview}
+  \end{flushleft} % \vspace{0.7ex}
+  % \begin{center}
+  \hspace*{2em}
+  \renewcommand{\arraystretch}{1.2}  % space lines out a bit
+  \begin{tabular}{@{}r@{--}*{2}{l@{\hspace*{1.5em}}}l@{}}
+}{%
+  \end{tabular}
+  % \end{center}
+}
+
+\newcommand{\fullprogram}[1]{
+  \begin{flushleft}
+    \large\textbf{Program PDF}
+  \end{flushleft} % \vspace{0.7ex}
+  \hspace*{2em}
+  The full program, including the abstracts, is available
+  at \href{#1}{#1}.
+}
+
+
+\newenvironment{help}{%
+  \begin{flushleft}
+    \large\textbf{If you need help}
+  \end{flushleft}
+  \begin{description}[font=\normalfont\bfseries,leftmargin=2em,labelwidth=0em,topsep=0ex plus 1pt] 
+    \RaggedRight
+}{%
+  \end{description}
+}
 
 
 
