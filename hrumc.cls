@@ -352,13 +352,9 @@ that whether you are speaking this year or not, you can look forward to
 sharing your work at next year's conference, 
 hosted by Westfield State College.}
 
-\newcommand{\support}{%
+\newcommand{\support}[1]{%
 {\large\bfseries
-This conference would not be possible without the very generous financial 
-support provided by the Office of the Vice President for Academic Affairs 
-at Saint Michael's College, and by the Departments of Mathematics and
-Computer Science.
-
+#1 %
 We thank them for their support. 
 We also thank all of the
 student and faculty volunteers who contributed their time, talents, energy, 
@@ -377,4 +373,29 @@ and enthusiasm.}}
     \textbf{Local Steering Committee} \\
 }{%
   \end{tabular}
+}
+
+
+
+
+
+% ........ Plenary ..............
+\newcommand{\plenaryhead}[2]{
+  \begin{flushleft}
+    \Large\textbf{Welcome and Invited Address}
+  \end{flushleft}
+  \vspace*{2ex}
+  \begin{flushleft}
+    \large\textbf{Welcoming Remarks:} #1 \\[0.7ex]
+    \large\textbf{Introduction of the Speaker:} #2 
+  \end{flushleft}
+}
+
+% plenary
+%  #1 talk title
+%  #2 speaker name
+%  #3 speaker affiliation
+%  #4 speaker bio
+\newenvironment{plenary}[4]{
+}{%
 }
