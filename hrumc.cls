@@ -301,7 +301,7 @@
 % ........ Welcome ..............
 \newcommand{\welcome}{
 \begin{flushleft}
-  \Large\textbf{Welcome!}
+  \Large\textbf{Welcome everyone!}
 \end{flushleft}
 Welcome to the twenty third annual 
 Hudson River Undergraduate Mathematics Conference (HRUMC), a
@@ -382,7 +382,7 @@ and enthusiasm.}}
 % ........ Plenary ..............
 \newcommand{\plenaryhead}[2]{
   \begin{flushleft}
-    \Large\textbf{Welcome and Invited Address}
+    \Large\textbf{Insitutional Greeting and Invited Address}
   \end{flushleft}
   \vspace*{2ex}
   \begin{flushleft}
@@ -391,11 +391,23 @@ and enthusiasm.}}
   \end{flushleft}
 }
 
+\RequirePackage{lipsum}
 % plenary
 %  #1 talk title
 %  #2 speaker name
 %  #3 speaker affiliation
 %  #4 speaker bio
-\newenvironment{plenary}[4]{
+\newsavebox{\speakerbio}
+\newenvironment{plenary}[4]{\setlength{\parskip}{1ex}
+  \savebox{\speakerbio}{\begin{minipage}{\textwidth}\setlength{\parskip}{1ex}\textbf{Biography} #4\end{minipage}}
+  \begin{center}
+    \Large\textbf{Keynote address: #1}\\[1ex]
+    \large\textbf{#2}\\[0.5ex]
+    \large{#3}
+  \end{center}
+  \vspace*{1.5ex plus 1 fil}
+  \textbf{Abstract}
 }{%
+  \vspace*{2ex plus 1 fil}
+  \usebox{\speakerbio}
 }
