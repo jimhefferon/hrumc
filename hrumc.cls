@@ -29,7 +29,7 @@
 % ....... conditional compilation .....
 \RequirePackage{etoolbox}
 
-% call with pdflatex \def\printabstracts{}\input{hrumc2016} to get them
+% call with pdflatex "\def\printabstracts{}\input{hrumc2016}" to get them
 \newbool{PrintAbstracts}
 \ifdefined\printabstracts
   \booltrue{PrintAbstracts}
@@ -37,6 +37,7 @@
   \boolfalse{PrintAbstracts}
 \fi
 
+\RequirePackage{amsmath}
 
 
 % ...... fonts .........
@@ -200,38 +201,56 @@
     \node at (char.center) {\makebox[0pt][c]{\large #2}};}}
 \robustify{\circled}
 \newsavebox{\mapbox}
-\savebox{\mapbox}{\includegraphics{map.png}} % map is 7.681 by 8.194 inches
+\savebox{\mapbox}{\includegraphics{map.png}} 
 % \newlength{\mapwidth}
 % \newlength{\mapheight}
 % \settowidth{\mapwidth}{\usebox{\mapbox}}
 % \settoheight{\mapheight}{\usebox{\mapbox}}
-\newcommand{\map}{
-  \begin{center}
-    \setlength{\unitlength}{1.0in}\large
-    \begin{picture}(7.681,8.194)
-      \put(0,0){\usebox{\mapbox}}
-      \put(-.2,1.4){\circled{1}\hspace{0.75em}Interstate 89 ia a quarter mile this way}
-      \put(-.2,1.05){\circled{2}\hspace{0.75em}Enter here, park on your left}
-      \put(-.2,.7){\circled{3}\hspace{0.75em}McCarthy Arts building}
-      \put(-.2,.35){\circled{4}\hspace{0.75em}Saint Edmunds Hall (STE)}
-      \put(-.2,.0){\circled{5}\hspace{0.75em}Jeanmarie Hall (JEM)}
-      \put(-.2,-0.35){\circled{6}\hspace{0.75em}Dion Center; register here}
-      \put(1,8){\circled{1}}
-      \put(1.6,5.3){\circled{2}}
-      \put(2.6,4.8){\circled{3}}
-      \put(2.55,3.7){\circled{4}}
-      \put(1.56,3.7){\circled{5}}
-      \put(4,3.5){\circled{6}}
-    \end{picture}
-  \end{center}}
+% \newcommand{\map}{
+%   \begin{center}
+%     \setlength{\unitlength}{1.0in}\large
+%     \begin{picture}(7.681,8.194)  % map is 7.681 by 8.194 inches
+%       \put(0,0){\usebox{\mapbox}}
+%       \put(-.2,1.4){\circled{1}\hspace{0.75em}Interstate 89 is a quarter mile this way}
+%       \put(-.2,1.05){\circled{2}\hspace{0.75em}Enter here, park on your left}
+%       \put(-.2,.7){\circled{3}\hspace{0.75em}McCarthy Arts building}
+%       \put(-.2,.35){\circled{4}\hspace{0.75em}Saint Edmunds Hall (STE)}
+%       \put(-.2,.0){\circled{5}\hspace{0.75em}Jeanmarie Hall (JEM)}
+%       \put(-.2,-0.35){\circled{6}\hspace{0.75em}Dion Center; register here}
+%       \put(1,8){\circled{1}}
+%       \put(1.6,5.3){\circled{2}}
+%       \put(2.6,4.8){\circled{3}}
+%       \put(2.55,3.7){\circled{4}}
+%       \put(1.56,3.7){\circled{5}}
+%       \put(4,3.5){\circled{6}}
+%     \end{picture}
+%   \end{center}}
+
+% For campus map
+
+% For map legend: 
+% #1  number; 1, 2, etc
+% #2  text; "Register here"
+\newcommand{\mapkey}[2]{\circled{#1}\hspace{0.75em}#2}
+
+% Campus map
+%  LaTeX picture environment drawn on top of a graphic
+% #1 file name of graphic; defaults to "map.png" 
+\newenvironment{map}[1][map.png]{%
+  \savebox{\mapbox}{\includegraphics{#1}}% 
+  \begin{center}\large
+    \setlength{\unitlength}{1.0in}
+}{%
+  \end{center}
+}
 
 
 % ........ Front cover ...........
-\newcommand{\fronttitle}{%
+\newcommand{\fronttitle}[1]{%
   \begin{center}
-    \Large HRUMC XXIII \\[1.5ex]
+     {\color{graycolor}\Large HRUMC #1} \\[1.5ex]
     \Huge\bfseries Hudson River\\
-          Undergraduate Mathematics Conference
+      Undergraduate Mathematics Conference
   \end{center}
 }
 
@@ -259,7 +278,7 @@
   \begin{flushleft}
     \large\bfseries Wifi information
   \end{flushleft}
-  \hspace*{2em}The guest account is on the network name ``#1'' 
+  \hspace*{2em}Use the network ``#1'' 
      with the password ``#2''.
 }
 
@@ -276,14 +295,16 @@
   % \end{center}
 }
 
-\newcommand{\fullprogram}[1]{
-  \begin{flushleft}
-    \large\textbf{Program PDF}
-  \end{flushleft} % \vspace{0.7ex}
-  \hspace*{2em}
-  The full program, including the abstracts, is available
-  at \href{#1}{#1}.
-}
+% Notice of where to find the abstracts
+\newcommand{\fullprogram}[1]{%
+  \ifbool{PrintAbstracts}{}{%
+    \begin{flushleft}
+      \large\textbf{Program PDF}
+    \end{flushleft} % \vspace{0.7ex}
+    \hspace*{2em}
+    The full program, including the abstracts, is available
+    at \href{#1}{#1}.%
+  }}
 
 
 \newenvironment{help}{%
@@ -299,11 +320,11 @@
 
 
 % ........ Welcome ..............
-\newcommand{\welcome}{
+\newcommand{\welcome}[2]{
 \begin{flushleft}
   \Large\textbf{Welcome everyone!}
 \end{flushleft}
-Welcome to the twenty third annual 
+Welcome to the #1\ annual 
 Hudson River Undergraduate Mathematics Conference (HRUMC), a
 mathematics conference designed primarily with students in mind. 
 Whether you are a student attending your first
@@ -314,30 +335,31 @@ We hope to establish an atmosphere that sends
 the message, ``We are glad that you are joining the mathematics community!''
 
 We feature 15~minute talks by students and faculty, 
-and a longer invited address.
+and a longer plenary address.
 Each year, we invite students and faculty from  
 universities and colleges in New York and New England to send abstracts
 for the short talks. 
-These talks describe research projects,
+These describe research projects,
 independent study projects, or any other independent work by students 
 and faculty. 
 We hope that you will attend many talks that sound interesting to you, 
 and that you will learn a great deal.
 
-If you are attending the conference for the first time, don't feel overwhelmed.
+If you are at this conference for the first time, don't feel overwhelmed.
 Spend a little time with this program and identify some talks that 
 grab your interest. 
 Plan on which talks you will attend.
-We set a strict schedule so you can easily go from room to room.
-If you are confused, just ask someone. 
+We keep a strict schedule so you can easily go to a new room to 
+see your next chosen talk.
+If you have a question, just ask someone. 
 
 Notice that each of the short talks is designated as Level~1 or Level~2.
-Level~1 talks are accessible to all mathematics students and faculty, 
+The Level~1 talks are accessible to all mathematics students and faculty, 
 while Level~2 talks are aimed at advanced undergraduates and faculty. 
 
 Please also check out the website for information about previous meetings, 
 pictures from this year's
-conference, and information about next year's conference:
+conference, as well as information about next year's conference:
 \href{http://www.skidmore.edu/hrumc}{http://www.skidmore.edu/hrumc}.
 
 The first HRUMC was held in 1994 at Siena College in Loudonville, NY.
@@ -350,7 +372,7 @@ We are delighted that you are here and hope you enjoy the conference.
 Keep in mind as you listen to the talks 
 that whether you are speaking this year or not, you can look forward to
 sharing your work at next year's conference, 
-hosted by Westfield State College.}
+hosted by #2.}
 
 \newcommand{\support}[1]{%
 {\large\bfseries
@@ -361,16 +383,16 @@ student and faculty volunteers who contributed their time, talents, energy,
 and enthusiasm.}}
 
 \newenvironment{hrumcsteering}{%
-  \begin{tabular}[t]{@{}l}
-    \textbf{HRUMC Steering Committee}     \\
+  \begin{tabular}[t]{@{}l@{}}
+    \textbf{HRUMC Committee}     \\
 }{%
   \end{tabular}
 }
 
 
 \newenvironment{localsteering}{%
-  \begin{tabular}[t]{@{}l}
-    \textbf{Local Steering Committee} \\
+  \begin{tabular}[t]{@{}l@{}}
+    \textbf{Local Arrangements} \\
 }{%
   \end{tabular}
 }
@@ -381,14 +403,16 @@ and enthusiasm.}}
 
 % ........ Plenary ..............
 \newcommand{\plenaryhead}[2]{
-  \begin{flushleft}
-    \Large\textbf{Insitutional Greeting and Invited Address}
-  \end{flushleft}
-  \vspace*{2ex}
-  \begin{flushleft}
+  \begin{center}
+    \LARGE\textbf{Institutional Greeting and Invited Address}
+  \end{center}
+  \vspace*{1ex}
+  \begin{center}
+  \begin{tabular}{l}
     \large\textbf{Welcoming Remarks:} #1 \\[0.7ex]
     \large\textbf{Introduction of the Speaker:} #2 
-  \end{flushleft}
+  \end{tabular}
+  \end{center}
 }
 
 \RequirePackage{lipsum}
@@ -399,15 +423,14 @@ and enthusiasm.}}
 %  #4 speaker bio
 \newsavebox{\speakerbio}
 \newenvironment{plenary}[4]{\setlength{\parskip}{1ex}
-  \savebox{\speakerbio}{\begin{minipage}{\textwidth}\setlength{\parskip}{1ex}\textbf{Biography} #4\end{minipage}}
+  \savebox{\speakerbio}{\begin{minipage}{\textwidth}\setlength{\parskip}{1ex}\vspace*{3ex}\textbf{Biography}\par #4\end{minipage}}
   \begin{center}
-    \Large\textbf{Keynote address: #1}\\[1ex]
-    \large\textbf{#2}\\[0.5ex]
+    \Large\textbf{Keynote address: #1}\\[1.25ex]
+    \large\textbf{#2}\\[0.35ex]
     \large{#3}
   \end{center}
-  \vspace*{1.5ex plus 1 fil}
+  \vspace*{1.5ex}
   \textbf{Abstract}
 }{%
-  \vspace*{2ex plus 1 fil}
   \usebox{\speakerbio}
 }
