@@ -376,8 +376,7 @@ hosted by #2.}
 
 \newcommand{\support}[1]{%
 {\large\bfseries
-#1 %
-We thank them for their support. 
+#1 % 
 We also thank all of the
 student and faculty volunteers who contributed their time, talents, energy, 
 and enthusiasm.}}
