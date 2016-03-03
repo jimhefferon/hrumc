@@ -32,7 +32,9 @@ def error(s):
 
 LATEX_INCLUDE_FN = "abs"
 LATEX_TEMPLATE = r"""\documentclass[12pt]{article}
-\usepackage{amsmath} 
+\usepackage{cmap}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb} 
 \usepackage[T1]{fontenc} 
 \usepackage{fbb}
 
@@ -61,9 +63,12 @@ LATEX_TEMPLATE = r"""\documentclass[12pt]{article}
 
 
 LATEX_ALL_TEMPLATE_TOP = r"""\documentclass[11pt]{article}
-\usepackage{amsmath} 
+\usepackage{cmap}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb} 
 \usepackage[T1]{fontenc} 
 \usepackage{fbb}
+\usepackage[top=0.5in,bottom=0.75in,right=0.5in]{geometry}
 
 \usepackage{ragged2e} %% for RaggedRight
 \newcommand{\abstracttitle}[1]{\textbf{#1}}
@@ -77,11 +82,11 @@ LATEX_ALL_TEMPLATE_TOP = r"""\documentclass[11pt]{article}
 %% #4 abstract body
 \renewcommand{\abstract}[4]{%% \newcommand is \long by default
    \abstracttitle{#1} \\
-   \abstractspeaker{#2}
-   \abstractlevel{#3} \\ 
+   \abstractlevel{#3}  
+   \abstractspeaker{#2} \\
    \noindent #4 
 } 
-
+\pagestyle{plain}
 \begin{document}\RaggedRight
 """
 
@@ -137,7 +142,7 @@ def latex_all(jobname, filelist):
     f = open(jobname+'.tex','w')
     f.write(LATEX_ALL_TEMPLATE_TOP)
     for fn in filelist:
-        print(r"\medskip\par\llap{%s:}\noindent\input{%s}" % (fn, fn),file=f)
+        print(r"\medskip\par\noindent\llap{%s:\ }\input{%s}" % (fn, fn),file=f)
     print(r"\end{document}",file=f)
     f.close()
     if VERBOSE:

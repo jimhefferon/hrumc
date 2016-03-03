@@ -37,7 +37,11 @@
   \boolfalse{PrintAbstracts}
 \fi
 
-\RequirePackage{amsmath}
+\RequirePackage{amsmath,amssymb}
+
+% ..... input and output encodings ........
+\usepackage[utf8]{inputenc} % allow utf input files
+\usepackage{cmap}  % make PDF file copy-and-paste-able
 
 
 % ...... fonts .........
