@@ -1,0 +1,10 @@
+README for bin directory of hrumc project
+
+The script hrumc.py is a Python 3 program.  In a directory inputs/ containing
+only the abstract .tex files run this command:
+
+python3 ../bin/hrumc.py -V
+
+It will make a directory outputs/ containing a separate .pdf for each abstract
+file.  It will also make a document containing all the abstracts, convenient
+for putting the talks into sessions.

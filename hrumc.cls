@@ -124,7 +124,7 @@
 \renewcommand{\abstract}[4]{% \newcommand is \long by default, #4 can have pars
   \RaggedRight
   \abstracttitle{#1}
-  \abstractlevel{#3}
+  \abstractlevel{#3}, 
   \abstractspeaker{#2}
   \ifbool{PrintAbstracts}{#4}{}
 }
@@ -135,8 +135,10 @@
 \newcommand{\at}[2]{%
   \begin{description}[font=\normalfont,leftmargin=2em,labelwidth=0em,topsep=0ex plus 1pt] 
     \RaggedRight
-    \item[\abstracttime{#1}]
-    \href{http://joshua.smcvt.edu/hrumc/#2.pdf}{\input{#2}}
+    % \item[\abstracttime{#1}]
+    \item[\href{http://joshua.smcvt.edu/hrumc/#2.pdf}{{\abstracttime{#1}}}]
+    % \href{http://joshua.smcvt.edu/hrumc/#2.pdf}{\input{#2}}
+    \input{#2}
   \end{description}
 }
 
