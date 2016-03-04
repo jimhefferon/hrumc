@@ -119,18 +119,21 @@
 \newcommand{\abstracttitle}[1]{\textit{#1}}
 \newcommand{\abstractlevel}[1]{\textrm{(Level~#1)}}
 \newcommand{\abstractspeaker}[1]{\textsc{#1}}
+\newcommand{\affiliation}[1]{ (#1)}
+\newcommand{\abstractsubject}[1]{\textrm{#1}}
 
 % Abstract
 %  #1 title
 %  #2 author
 %  #3 level
-%  #4 abstract body
-\renewcommand{\abstract}[4]{% \newcommand is \long by default, #4 can have pars
+%  #4 subject
+%  #5 abstract body
+\renewcommand{\abstract}[5]{% \newcommand is \long by default, #4 can have pars
   \RaggedRight
   \abstracttitle{#1}
   \abstractlevel{#3}, 
   \abstractspeaker{#2}
-  \ifbool{PrintAbstracts}{#4}{}
+  \ifbool{PrintAbstracts}{#5}{}
 }
 
 % \at  abstract and time
@@ -140,7 +143,9 @@
   \begin{description}[font=\normalfont,leftmargin=2em,labelwidth=0em,topsep=0ex plus 1pt] 
     \RaggedRight
     % \item[\abstracttime{#1}]
-    \item[\href{http://joshua.smcvt.edu/hrumc/#2.pdf}{{\abstracttime{#1}}}]
+    \ifbool{PrintAbstracts}{%
+       \item[\href{http://joshua.smcvt.edu/hrumc/#2.pdf}{{\abstracttime{#1}}}]}{%
+       \item[\abstracttime{#1}]}
     % \href{http://joshua.smcvt.edu/hrumc/#2.pdf}{\input{#2}}
     \input{#2}
   \end{description}
