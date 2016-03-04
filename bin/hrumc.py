@@ -91,6 +91,138 @@ LATEX_ALL_TEMPLATE_TOP = r"""\documentclass[11pt]{article}
 """
 
 
+LATEX_ROOMS_TEMPLATE_TOP = r"""\documentclass[11pt]{article}
+\usepackage{cmap}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb} 
+\usepackage[T1]{fontenc} 
+\usepackage{fbb}
+\usepackage[top=1in,bottom=1in,right=1in,left=1in]{geometry}
+
+\usepackage{ragged2e} %% for RaggedRight
+\newcommand{\abstracttitle}[1]{\textbf{#1}}
+\newcommand{\abstractlevel}[1]{\textrm{(Level~#1)}}
+\newcommand{\abstractspeaker}[1]{\textsc{#1}}
+
+%% Abstract 
+%% #1 title 
+%% #2 author 
+%% #3 level 
+%% #4 abstract body
+\renewcommand{\abstract}[4]{%% \newcommand is \long by default
+   \abstracttitle{#1} 
+   \abstractspeaker{#2} 
+   \abstractlevel{#3}  
+   %% \noindent #4 
+} 
+\pagestyle{empty}
+\begin{document}\RaggedRight
+"""
+
+
+def make_rooms(inputfn, filelist, outputfn="rooms"):
+    """Make the signs for the rooms.
+    """
+    starting_dir = os.getcwd()
+    # make a tmp dir
+    if os.path.isdir('tmp'):
+        shutil.rmtree('tmp')
+    os.mkdir('tmp')
+    tmp_dir_name = tempfile.mkdtemp(prefix='tmp', dir='tmp')
+    # copy all the .tex files to the tmp dir
+    for fn in filelist:
+        shutil.copyfile(starting_dir+'/'+fn,tmp_dir_name+'/'+fn)
+    # go to the tmp dir
+    os.chdir(tmp_dir_name)
+    # regexes for reading the file
+    sessionhead_re = re.compile(r"\\sessionhead\{([^\}]*)\}.*")
+    session_re = re.compile(r"\\session\{([^\}]*)\}\{([^\}]*)\}\{([^\}]*)\}.*")
+    at_re = re.compile(r"\\at\{([^\}]*)\}\{([^\}]*)\}.*")
+    # There are two passes.  First we get the rooms, then we stuff the map
+    rooms = {}  # map room number -> list of strings 
+    # get the rooms
+    fin = open(starting_dir+'/'+inputfn,'r')
+    state = "BEFORE_PARALLEL_SESSIONS"
+    linenumber = 0
+    for line in fin:
+        linenumber += 1
+        if state == "BEFORE_PARALLEL_SESSIONS":
+            if line.startswith("% ===== BEGIN PARALLEL SESSIONS"):
+                state = "IN_PARALLEL_SESSIONS"
+        elif state == "IN_PARALLEL_SESSIONS":
+            if line.startswith("\session{"): # contains a room name
+                m = session_re.match(line)
+                if m:
+                    rooms[m.group(2)]=[]
+                else:
+                    raise HRUMCException('Expected a match for line number '+str(linenumber)+', the line '+line)
+            elif line.startswith("% ===== END PARALLEL SESSIONS"):
+                state = "AFTER_PARALLEL_SESSIONS"
+        if state == "AFTER_PARALLEL_SESSIONS":
+            pass
+    fin.close()
+    if DEBUG:
+        print("DEBUG: first pass Rooms:",rooms)
+    # populate the rooms
+    fin = open(starting_dir+'/'+inputfn,'r')
+    parallelsessionnumber = None
+    sessionname, sessionroom, sessionchair = None, None, None
+    attime, atabstract  =  None, None
+    state = "BEFORE_PARALLEL_SESSIONS"
+    linenumber = 0
+    for line in fin:
+        linenumber +=1
+        if state == "BEFORE_PARALLEL_SESSIONS":
+            if line.startswith("% ===== BEGIN PARALLEL SESSIONS"):
+                state = "IN_PARALLEL_SESSIONS"
+        elif state == "IN_PARALLEL_SESSIONS":
+            if line.startswith("\\sessionhead{"): # new parallel session
+                m = sessionhead_re.match(line)
+                if m:
+                    parallelsessionnumber = m.group(1)
+                    for k in rooms:
+                        rooms[k].append("\\sessionhead{"+parallelsessionnumber+"}")
+                else:
+                    raise HRUMCException('Expected a match for the line number '+str(linenumber)+', session head line '+line)
+            elif line.startswith("\\session{"):
+                m = session_re.match(line)
+                if m:
+                    sessionname, sessionroom, sessionchair = m.group(1), m.group(2), m.group(3)
+                    rooms[sessionroom].append("\\session{%s}{%s}{%s}" % (sessionname,sessionroom,sessionchair))
+                else:
+                    raise HRUMCException('Expected a match for line number '+str(linenumber)+', the session line '+line)
+            elif line.startswith("\\at{"):
+                print("line starts with at")
+                m = at_re.match(line)
+                if m:
+                    attime, atabstract = m.group(1), m.group(2)
+                    rooms[sessionroom].append(r"\at{%s}{%s}" % (attime,atabstract))
+                else:
+                    raise HRUMCException('Expected a match for line number '+str(linenumber)+', the at line '+line)
+            elif line.startswith("% ===== END PARALLEL SESSIONS"):
+                state = "AFTER_PARALLEL_SESSIONS"
+            else:
+                pass  # blank line
+        if state == "AFTER_PARALLEL_SESSIONS":
+            pass
+    fin.close()        
+    if DEBUG:
+        print("DEBUG: second pass Rooms:",rooms)
+    # Make the output file
+    fout = open(outputfn+'.tex','w')
+    print(LATEX_ROOMS_TEMPLATE_TOP, file=fout)
+    for k in rooms:
+        print("\begin{room}{xx}", file=fout)
+        print("\n".join(rooms[k]), file=fout)
+        print("\end{room}", file=fout)
+    print("\end{document}", file=fout)
+    fout.close()
+    # shutil.copyfile('./'+jobname+'-crop.pdf', pdfdirname+'/'+jobname+'.pdf')
+    # clean up
+    os.chdir(starting_dir)
+    # shutil.rmtree('tmp')
+
+
 
 def latex_each(fn,pdfdirname="/output/"):
     """Make a temp dir, copy the file to it, run latex there,
@@ -165,11 +297,12 @@ def main (args):
     os.mkdir(OUTPUT_DIR_NAME)
     # get all .tex files in this dir
     filelist = glob.glob("*.tex")
+    filelist.remove("hrumc2016.tex")
     filelist.sort()
-    for fn in filelist:
-        # for each .tex file, run latex
-        latex_each(fn, pdfdirname=OUTPUT_DIR_NAME)
-    latex_all('hrumcall',filelist)
+    # for fn in filelist:
+    #     latex_each(fn, pdfdirname=OUTPUT_DIR_NAME)
+    # latex_all('hrumcall',filelist)
+    make_rooms("hrumc2016.tex",filelist)
 
 #==================================================================
 if __name__ == '__main__':
