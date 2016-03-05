@@ -45,6 +45,7 @@ LATEX_TEMPLATE = r"""\documentclass[12pt]{article}
 \newcommand{\abstracttitle}[1]{\textbf{#1}}
 \newcommand{\abstractlevel}[1]{\textrm{This talk is Level~#1}}
 \newcommand{\abstractspeaker}[1]{\textsc{#1}}
+\newcommand{\affiliation}[1]{ (#1)}
 
 %% Abstract 
 %% #1 title 
@@ -75,8 +76,10 @@ LATEX_ALL_TEMPLATE_TOP = r"""\documentclass[11pt]{article}
 
 \usepackage{ragged2e} %% for RaggedRight
 \newcommand{\abstracttitle}[1]{\textbf{#1}}
-\newcommand{\abstractlevel}[1]{\textrm{(Level~#1)}}
+\newcommand{\abstractlevel}[1]{\textit{Level~#1}}
 \newcommand{\abstractspeaker}[1]{\textsc{#1}}
+\newcommand{\affiliation}[1]{ (#1)}
+\newcommand{\abstractsubject}[1]{\textrm{#1}}
 
 %% Abstract 
 %% #1 title 
@@ -85,9 +88,10 @@ LATEX_ALL_TEMPLATE_TOP = r"""\documentclass[11pt]{article}
 %% #4 subject 
 %% #5 abstract body
 \renewcommand{\abstract}[5]{%% \newcommand is \long by default
+   \abstractsubject{#4} 
+   \abstractlevel{#3}  \\
    \abstracttitle{#1} \\
-   \abstractlevel{#3}  
-   \abstractspeaker{#2} \\
+   \abstractspeaker{#2} \\ 
    \noindent #5 
 } 
 \pagestyle{plain}
@@ -101,13 +105,13 @@ LATEX_ROOMS_TEMPLATE_TOP = r"""\documentclass[12pt]{article}
 \usepackage{amsmath,amssymb} 
 \usepackage[T1]{fontenc} 
 \usepackage{fbb}
-\usepackage[top=1in,bottom=1in,right=1in,left=1in]{geometry}
+\usepackage[top=0.75in,bottom=0.75in,right=1in,left=1in]{geometry}
 
 \usepackage{ragged2e} %% for RaggedRight
 \usepackage{enumitem} %% for description
 
-\newcommand{\sessionhead}[1]{\begin{center}\Large \textbf{Session #1}\end{center}}
-\newcommand{\session}[3]{\begin{center}{\large \textbf{#1}} \\ Chair: #3\end{center}}
+\newcommand{\sessionhead}[1]{\vspace*{3ex}\begin{center}\Large \textbf{Session #1}\end{center}}
+\newcommand{\session}[3]{\begin{center}{\large \textbf{#1}} \\[1ex] Chair: #3\end{center}}
 \newcommand{\at}[2]{%
   \begin{description}[font=\normalfont,leftmargin=2em,labelwidth=0em,topsep=0ex plus 1pt] 
     \RaggedRight
@@ -129,7 +133,7 @@ LATEX_ROOMS_TEMPLATE_TOP = r"""\documentclass[12pt]{article}
 \newcommand{\IIIc}{\timeformat{4}{20}-\timeformat{4}{35}}
 
 \newcommand{\abstracttitle}[1]{\textbf{#1}}
-\newcommand{\abstractlevel}[1]{\textrm{(Level~#1)}}
+\newcommand{\abstractlevel}[1]{\textrm{Level~#1}}
 \newcommand{\abstractspeaker}[1]{\textsc{#1}}
 \newcommand{\affiliation}[1]{ (#1)}
 
@@ -146,8 +150,8 @@ LATEX_ROOMS_TEMPLATE_TOP = r"""\documentclass[12pt]{article}
 } 
 
 \newenvironment{room}[1]{%
-  \begin{center}\Huge #1\end{center}
-  \bigskip
+  \begin{center}\fontsize{60}{75}\selectfont #1\end{center}
+  \vspace*{-2ex}
 }{%
   \clearpage
 }
@@ -293,8 +297,9 @@ def latex_each(fn,pdfdirname="/output/"):
 
 
 def latex_all(jobname, filelist):
-    """Make a temp dir, copy all files to it, run latex there to create a 
-    single doc, and copy the .pdf back
+    """Make a single .pdf that contains all abstracts.
+      jobname  Name of .pdf file
+      filelist  List of all abstract .tex filenames
     """
     starting_dir = os.getcwd()
     # make a tmp dir
@@ -338,8 +343,8 @@ def main (args):
     filelist.sort()
     # for fn in filelist:
     #     latex_each(fn, pdfdirname=OUTPUT_DIR_NAME)
-    # latex_all('hrumcall',filelist)
-    make_rooms(args['file'],filelist)
+    latex_all('hrumcall',filelist)
+    # make_rooms(args['file'],filelist)
 
 #==================================================================
 if __name__ == '__main__':
