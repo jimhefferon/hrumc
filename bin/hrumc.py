@@ -36,6 +36,7 @@ LATEX_INCLUDE_FN = "abs"
 LATEX_TEMPLATE = r"""\documentclass[12pt]{article}
 \usepackage{cmap}
 \usepackage[utf8]{inputenc}
+  \DeclareUnicodeCharacter{00A0}{~} %% no break space
 \usepackage{amsmath,amssymb} 
 \usepackage[T1]{fontenc} 
 \usepackage{fbb}
@@ -59,6 +60,11 @@ LATEX_TEMPLATE = r"""\documentclass[12pt]{article}
    \begin{center} \abstractlevel{#3} \end{center} 
    \noindent #5
 } 
+%% Notes  Usedin some other docs to show whether presenter has requested 
+%% special facilities, etc.
+%%  #1 The notes
+\newcommand{\notes}[1]{\relax}
+
 \pagestyle{empty}
 \begin{document}\thispagestyle{empty} 
 \include{%s} 
@@ -69,6 +75,7 @@ LATEX_TEMPLATE = r"""\documentclass[12pt]{article}
 LATEX_ALL_TEMPLATE_TOP = r"""\documentclass[11pt]{article}
 \usepackage{cmap}
 \usepackage[utf8]{inputenc}
+  \DeclareUnicodeCharacter{00A0}{~} %% no break space
 \usepackage{amsmath,amssymb} 
 \usepackage[T1]{fontenc} 
 \usepackage{fbb}
@@ -94,6 +101,11 @@ LATEX_ALL_TEMPLATE_TOP = r"""\documentclass[11pt]{article}
    \abstractspeaker{#2} \\ 
    \noindent #5 
 } 
+% Notes  Used to show whether presenter has requests
+% special facilities, etc.
+%  #1 The notes
+\newcommand{\notes}[1]{\par\textit{NOTES:} #1}
+
 \pagestyle{plain}
 \begin{document}\RaggedRight
 """
@@ -102,6 +114,7 @@ LATEX_ALL_TEMPLATE_TOP = r"""\documentclass[11pt]{article}
 LATEX_ROOMS_TEMPLATE_TOP = r"""\documentclass[12pt]{article}
 \usepackage{cmap}
 \usepackage[utf8]{inputenc}
+  \DeclareUnicodeCharacter{00A0}{~} %% no break space
 \usepackage{amsmath,amssymb} 
 \usepackage[T1]{fontenc} 
 \usepackage{fbb}
@@ -148,6 +161,10 @@ LATEX_ROOMS_TEMPLATE_TOP = r"""\documentclass[12pt]{article}
    \abstractspeaker{#2} 
    \abstractlevel{#3}  
 } 
+%% Notes  Used in some other docs to show whether presenter has requested 
+%% special facilities, etc.
+%%  #1 The notes
+\newcommand{\notes}[1]{\relax}
 
 \newenvironment{room}[1]{%
   \begin{center}\fontsize{60}{75}\selectfont #1\end{center}

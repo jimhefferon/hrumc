@@ -3,7 +3,7 @@
 
 % --- Class structure: identification part
 % ---
-\ProvidesClass{hrumc}[2015/01/30 version 1.00 HRUMC class]
+\ProvidesClass{hrumc}[2015/03/09 version 1.00 HRUMC class]
 \NeedsTeXFormat{LaTeX2e}
 
 % --- Class structure: initial code part
@@ -41,6 +41,7 @@
 
 % ..... input and output encodings ........
 \usepackage[utf8]{inputenc} % allow utf input files
+  \DeclareUnicodeCharacter{00A0}{~} %% no break space
 \usepackage{cmap}  % make PDF file copy-and-paste-able
 
 
@@ -136,6 +137,12 @@
   \ifbool{PrintAbstracts}{#5}{}
 }
 
+% Notes  Used in some other docs to show whether presenter has requested 
+% special facilities, etc.
+%  #1 The notes
+\newcommand{\notes}[1]{\relax}
+
+
 % \at  abstract and time
 %  #1 time
 %  #2 name of file containing the abstract
@@ -147,7 +154,7 @@
        \item[\href{http://joshua.smcvt.edu/hrumc/#2.pdf}{{\abstracttime{#1}}}]}{%
        \item[\abstracttime{#1}]}
     % \href{http://joshua.smcvt.edu/hrumc/#2.pdf}{\input{#2}}
-    \input{#2}
+    \input{input/#2}
   \end{description}
 }
 
@@ -184,6 +191,7 @@
                      &&Chair: #3
     \end{tabularx}
   \end{mdframed}%
+  \nopagebreak[2]
 }
 
 
@@ -192,15 +200,21 @@
 %   #1  session name; 'one', 'two', etc.
 \newcommand{\sessionhead}[1]{%
 \clearpage %
+\ifbool{PrintAbstracts}{%
+    \begin{center} \color{standoutcolor}
+      \Large \textbf{\MakeTextUppercase{Parallel Sessions #1}} \\
+      {\color{bordercolor}\rule{\textwidth}{1pt}}
+    \end{center}\vspace{3ex plus 1ex minus 1ex}
+}{%
 \twocolumn[
   \begin{@twocolumnfalse}
     \begin{center} \color{standoutcolor}
       \Large \textbf{\MakeTextUppercase{Parallel Sessions #1}} \\
       {\color{bordercolor}\rule{\textwidth}{1pt}}
-    \end{center}\vspace{3ex}
+    \end{center}\vspace{3ex plus 1ex minus 1ex}
   \end{@twocolumnfalse}
 ] 
-}
+}}
 
 % .......... campus map .............
 \RequirePackage{graphicx}
@@ -345,7 +359,7 @@ and that you will make new friends and connections in the mathematics community.
 We hope to establish an atmosphere that sends
 the message, ``We are glad that you are joining the mathematics community!''
 
-We feature 15~minute talks by students and faculty, 
+We feature fifteen minute talks by students and faculty, 
 and a longer plenary address.
 Each year, we invite students and faculty from  
 universities and colleges in New York and New England to send abstracts
@@ -356,19 +370,21 @@ and faculty.
 We hope that you will attend many talks that sound interesting to you, 
 and that you will learn a great deal.
 
-If you are at this conference for the first time, don't feel overwhelmed.
-Spend a little time with this program and identify some talks that 
+If you are at this conference for the first time then
+spend a little time with this program and identify some talks that 
 grab your interest. 
 Plan on which talks you will attend.
-We keep a strict schedule so you can easily go to a new room to 
-see your next chosen talk.
-If you have a question, just ask someone. 
+We keep a strict schedule to coordinate the sessions,
+so if your next chosen talk is in a different room then 
+you know your present talk will end on time and your next one will 
+start when it says it will.
+If you have a question, please, just ask someone. 
 
-Notice that each of the short talks is designated as Level~1 or Level~2.
+Each of the short talks is designated as Level~1 or Level~2.
 The Level~1 talks are accessible to all mathematics students and faculty, 
 while Level~2 talks are aimed at advanced undergraduates and faculty. 
 
-Please also check out the website for information about previous meetings, 
+Also check out the website for information about previous meetings, 
 pictures from this year's
 conference, as well as information about next year's conference:
 \href{http://www.skidmore.edu/hrumc}{http://www.skidmore.edu/hrumc}.
@@ -402,7 +418,7 @@ and enthusiasm.}}
 
 \newenvironment{localsteering}{%
   \begin{tabular}[t]{@{}l@{}}
-    \textbf{Local Arrangements} \\
+    \textbf{Site Arrangements} \\
 }{%
   \end{tabular}
 }
