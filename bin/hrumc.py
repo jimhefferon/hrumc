@@ -129,7 +129,7 @@ LATEX_ROOMS_TEMPLATE_TOP = r"""\documentclass[12pt]{article}
 \usepackage{enumitem} %% for description
 
 \newcommand{\sessionhead}[1]{\vspace*{3ex}\begin{center}\Large \textbf{Session #1}\end{center}}
-\newcommand{\session}[3]{\begin{center}{\large \textbf{#1}} \\[1ex] Chair: #3\end{center}}
+\newcommand{\session}[3]{\begin{center}{\large \textbf{#1}} \\[1ex] Chair: #3\end{center}\vspace*{-0.5ex}}
 \newcommand{\at}[2]{%
   \begin{description}[font=\normalfont,leftmargin=2em,labelwidth=0em,topsep=0ex plus 1pt] 
     \RaggedRight
@@ -143,12 +143,15 @@ LATEX_ROOMS_TEMPLATE_TOP = r"""\documentclass[12pt]{article}
 \newcommand{\Ia}{\timeformat{10}{00}-\timeformat{10}{15}}
 \newcommand{\Ib}{\timeformat{10}{20}-\timeformat{10}{35}}
 \newcommand{\Ic}{\timeformat{10}{40}-\timeformat{10}{55}}
+
 \newcommand{\IIa}{\timeformat{1}{40}-\timeformat{1}{55}}
 \newcommand{\IIb}{\timeformat{2}{00}-\timeformat{2}{15}}
 \newcommand{\IIc}{\timeformat{2}{20}-\timeformat{2}{35}}
+\newcommand{\IId}{\timeformat{2}{40}-\timeformat{2}{55}}
+
 \newcommand{\IIIa}{\timeformat{3}{30}-\timeformat{3}{45}}
-\newcommand{\IIIb}{\timeformat{4}{00}-\timeformat{4}{15}}
-\newcommand{\IIIc}{\timeformat{4}{20}-\timeformat{4}{35}}
+\newcommand{\IIIb}{\timeformat{3}{50}-\timeformat{4}{05}}
+\newcommand{\IIIc}{\timeformat{4}{10}-\timeformat{4}{25}}
 
 \newcommand{\authorref}[2]{#1 #2}
 
@@ -187,6 +190,7 @@ LATEX_ROOMS_TEMPLATE_TOP = r"""\documentclass[12pt]{article}
 
 def make_rooms(inputfn, filelist, outputfn="rooms"):
     """Make the signs for the rooms.
+    Assumes this is the 'include' directory, holding all the .tex abstracts.
     """
     starting_dir = os.getcwd()
     # make a tmp dir
@@ -206,7 +210,10 @@ def make_rooms(inputfn, filelist, outputfn="rooms"):
     # There are two passes.  First we get the rooms, then we stuff the map
     rooms = {}  # map room number -> list of strings 
     # get the rooms
-    fin = open(starting_dir+'/'+inputfn,'r')
+    try:
+        fin = open(starting_dir+'/../'+inputfn,'r')
+    except Exception as e:
+        raise HRUMCException("unable to make rooms; unable to open "+inputfn+": "+str(e))
     state = "BEFORE_PARALLEL_SESSIONS"
     linenumber = 0
     for line in fin:
@@ -229,7 +236,7 @@ def make_rooms(inputfn, filelist, outputfn="rooms"):
     if DEBUG:
         print("DEBUG: first pass Rooms:",rooms)
     # populate the rooms
-    fin = open(starting_dir+'/'+inputfn,'r')
+    fin = open(starting_dir+'/../'+inputfn,'r')
     parallelsessionnumber = None
     sessionname, sessionroom, sessionchair = None, None, None
     attime, atabstract  =  None, None
@@ -273,6 +280,8 @@ def make_rooms(inputfn, filelist, outputfn="rooms"):
     fin.close()        
     if DEBUG:
         print("DEBUG: second pass Rooms:",rooms)
+    # Drop the temp dir
+    # shutil.rmtree('tmp')
     # Make the output file
     fout = open(outputfn+'.tex','w')
     print(LATEX_ROOMS_TEMPLATE_TOP, file=fout)
@@ -282,10 +291,16 @@ def make_rooms(inputfn, filelist, outputfn="rooms"):
         print(r"\end{room}", file=fout)
     print(r"\end{document}", file=fout)
     fout.close()
-    # shutil.copyfile('./'+jobname+'-crop.pdf', pdfdirname+'/'+jobname+'.pdf')
+    # LaTeX that file
+    jobname = os.path.splitext(os.path.basename(outputfn))[0]
+    if VERBOSE:
+        print("  LaTeX-ing the file",jobname+'.')
+    subprocess.call(['pdflatex',jobname],stdout=subprocess.DEVNULL)
+    subprocess.call(['pdflatex',jobname],stdout=subprocess.DEVNULL)
+    shutil.copyfile(jobname+'.pdf',starting_dir+'/'+jobname+'.pdf')
     # clean up
     os.chdir(starting_dir)
-    # shutil.rmtree('tmp')
+    shutil.rmtree('tmp')
 
 
 
@@ -363,10 +378,13 @@ def main (args):
     os.mkdir(OUTPUT_DIR_NAME)
     # get all .tex files in this dir
     filelist = glob.glob("*.tex")
-    filelist.remove(args['file'])
+    try:                              # remove hrumc2xxx.tex, if it is there
+        filelist.remove(args['file']) 
+    except:
+        pass
     filelist.sort()
-    for fn in filelist:
-        latex_each(fn, pdfdirname=OUTPUT_DIR_NAME)
+    # for fn in filelist:
+    #     latex_each(fn, pdfdirname=OUTPUT_DIR_NAME)
     latex_all('hrumcall',filelist)
     make_rooms(args['file'],filelist)
 
