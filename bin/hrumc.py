@@ -43,6 +43,8 @@ LATEX_TEMPLATE = r"""\documentclass[12pt]{article}
 
 \usepackage{ragged2e} %% for RaggedRight
 
+\newcommand{\authorref}[2]{#1 #2}
+
 \newcommand{\abstracttitle}[1]{\textbf{#1}}
 \newcommand{\abstractlevel}[1]{\textrm{This talk is Level~#1}}
 \newcommand{\abstractspeaker}[1]{\textsc{#1}}
@@ -82,6 +84,9 @@ LATEX_ALL_TEMPLATE_TOP = r"""\documentclass[11pt]{article}
 \usepackage[top=0.5in,bottom=0.75in,right=0.5in]{geometry}
 
 \usepackage{ragged2e} %% for RaggedRight
+
+\newcommand{\authorref}[2]{#1 #2}
+
 \newcommand{\abstracttitle}[1]{\textbf{#1}}
 \newcommand{\abstractlevel}[1]{\textit{Level~#1}}
 \newcommand{\abstractspeaker}[1]{\textsc{#1}}
@@ -144,6 +149,8 @@ LATEX_ROOMS_TEMPLATE_TOP = r"""\documentclass[12pt]{article}
 \newcommand{\IIIa}{\timeformat{3}{30}-\timeformat{3}{45}}
 \newcommand{\IIIb}{\timeformat{4}{00}-\timeformat{4}{15}}
 \newcommand{\IIIc}{\timeformat{4}{20}-\timeformat{4}{35}}
+
+\newcommand{\authorref}[2]{#1 #2}
 
 \newcommand{\abstracttitle}[1]{\textbf{#1}}
 \newcommand{\abstractlevel}[1]{\textrm{Level~#1}}
@@ -358,10 +365,10 @@ def main (args):
     filelist = glob.glob("*.tex")
     filelist.remove(args['file'])
     filelist.sort()
-    # for fn in filelist:
-    #     latex_each(fn, pdfdirname=OUTPUT_DIR_NAME)
+    for fn in filelist:
+        latex_each(fn, pdfdirname=OUTPUT_DIR_NAME)
     latex_all('hrumcall',filelist)
-    # make_rooms(args['file'],filelist)
+    make_rooms(args['file'],filelist)
 
 #==================================================================
 if __name__ == '__main__':

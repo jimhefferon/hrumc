@@ -104,7 +104,7 @@
     pdfkeywords={Hudson River, Undergraduate Mathematics Conference, HRUMC}, % list of keywords
     pdfnewwindow=true,      % links in new PDF window
     colorlinks=true,       % false: boxed links; true: colored links
-    linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+    linkcolor=black,          % color of internal links (change box color with linkbordercolor)
     citecolor=black,        % color of links to bibliography
     filecolor=black,      % color of file links
     urlcolor=black           % color of external links
@@ -116,6 +116,14 @@
 \RequirePackage{ragged2e}  % for RaggedRight
 
 
+% .......... author ref .............
+% Divide author name for indexing
+\newcommand{\swallowpagenumber}[1]{\relax}
+\newcommand{\authorref}[2]{#1 #2%
+  \index{#2, #1 \protect\textit{\sessionname}|swallowpagenumber}}
+\AtBeginDocument{\renewcommand\indexname{Index of Authors}}
+
+% .......... abstract .............
 \newcommand{\abstracttime}[1]{#1}
 \newcommand{\abstracttitle}[1]{\textit{#1}}
 \newcommand{\abstractlevel}[1]{\textrm{(Level~#1)}}
@@ -132,7 +140,7 @@
 \renewcommand{\abstract}[5]{% \newcommand is \long by default, #4 can have pars
   \RaggedRight
   \abstracttitle{#1}
-  \abstractlevel{#3}, 
+  \abstractlevel{#3} 
   \abstractspeaker{#2}
   \ifbool{PrintAbstracts}{#5}{}
 }
@@ -151,8 +159,8 @@
     \RaggedRight
     % \item[\abstracttime{#1}]
     \ifbool{PrintAbstracts}{%
-       \item[\href{http://joshua.smcvt.edu/hrumc/#2.pdf}{{\abstracttime{#1}}}]}{%
-       \item[\abstracttime{#1}]}
+       \item[\abstracttime{#1}]}{%      
+       \item[\href{http://joshua.smcvt.edu/hrumc/#2.pdf}{{\abstracttime{#1}}}]}
     % \href{http://joshua.smcvt.edu/hrumc/#2.pdf}{\input{#2}}
     \input{input/#2}
   \end{description}
@@ -163,12 +171,15 @@
 \newcommand{\Ia}{\timeformat{10}{00}-\timeformat{10}{15}}
 \newcommand{\Ib}{\timeformat{10}{20}-\timeformat{10}{35}}
 \newcommand{\Ic}{\timeformat{10}{40}-\timeformat{10}{55}}
+
 \newcommand{\IIa}{\timeformat{1}{40}-\timeformat{1}{55}}
 \newcommand{\IIb}{\timeformat{2}{00}-\timeformat{2}{15}}
 \newcommand{\IIc}{\timeformat{2}{20}-\timeformat{2}{35}}
+\newcommand{\IId}{\timeformat{2}{40}-\timeformat{2}{55}}
+
 \newcommand{\IIIa}{\timeformat{3}{30}-\timeformat{3}{45}}
-\newcommand{\IIIb}{\timeformat{4}{00}-\timeformat{4}{15}}
-\newcommand{\IIIc}{\timeformat{4}{20}-\timeformat{4}{35}}
+\newcommand{\IIIb}{\timeformat{3}{50}-\timeformat{4}{05}}
+\newcommand{\IIIc}{\timeformat{4}{10}-\timeformat{4}{25}}
 
 
 % ............. Session .............
@@ -183,13 +194,19 @@
 %  #1 session name e.g. "Algebra I"
 %  #2 room, e.g. "STE 106"
 %  #3 chair, e.g. "Leonard Euler"
+\newcommand{\sessionname}{unknown session}
 \newcommand{\session}[3]{%
+  \renewcommand{\sessionname}{#1}
   \begin{mdframed}[style=Framed]
     \color{bordercolor}
-    \begin{tabularx}{\columnwidth}{lXr}
-      \textbf{#1}    &&#2  \\
-                     &&Chair: #3
-    \end{tabularx}
+    % \begin{tabularx}{\columnwidth}{lXr}
+    %   \textbf{#1}    &&#2  \\
+    %                  &&Chair: #3
+    % \end{tabularx}
+    % \begin{tabularx}{\columnwidth}{lXr}
+    \textbf{#1} \hspace{1em plus 1fill}#2  \\
+    \hbox{}           \hspace{1em plus 1fill}Chair: #3
+    % \end{tabularx}
   \end{mdframed}%
   \nopagebreak[2]
 }
@@ -215,6 +232,8 @@
   \end{@twocolumnfalse}
 ] 
 }}
+
+
 
 % .......... campus map .............
 \RequirePackage{graphicx}
