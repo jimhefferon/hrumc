@@ -8,5 +8,8 @@ Abstracts at put one per file, as in jones1.tex.
 
 To get a printout without abstracts:
   pdflatex hrumc2016
-To get a printout with abstracts:
+To get a printout with abstracts do these four:
+  pdflatex "\def\printabstracts{}\input{hrumc2016}"
+  pdflatex "\def\printabstracts{}\input{hrumc2016}"
+  makeindex -s hrumc.ist hrumc2016
   pdflatex "\def\printabstracts{}\input{hrumc2016}"

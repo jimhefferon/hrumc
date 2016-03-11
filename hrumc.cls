@@ -61,7 +61,7 @@
 
 
 % Page layout
-\RequirePackage[left=0.8in,right=0.8in,top=0.8in,bottom=0.8in]{geometry}
+\RequirePackage[left=0.75in,right=0.75in,top=0.75in,bottom=0.75in]{geometry}
 
 \setlength{\parskip}{0ex}
 \setlength{\parindent}{0ex}
@@ -185,10 +185,10 @@
 % ............. Session .............
 \RequirePackage{mdframed}
 \mdfdefinestyle{Framed}{linecolor=black,linewidth=0pt, % 0.4pt,
+       innertopmargin=4pt,innerbottommargin=4pt,
        leftmargin=0pt,rightmargin=0pt,
        innerleftmargin=0pt,innerrightmargin=0pt,
        backgroundcolor=backgroundcolor}
-\RequirePackage{tabularx}
 
 % \session  Title of session
 %  #1 session name e.g. "Algebra I"
@@ -199,14 +199,8 @@
   \renewcommand{\sessionname}{#1}
   \begin{mdframed}[style=Framed]
     \color{bordercolor}
-    % \begin{tabularx}{\columnwidth}{lXr}
-    %   \textbf{#1}    &&#2  \\
-    %                  &&Chair: #3
-    % \end{tabularx}
-    % \begin{tabularx}{\columnwidth}{lXr}
     \textbf{#1} \hspace{1em plus 1fill}#2  \\
     \hbox{}           \hspace{1em plus 1fill}Chair: #3
-    % \end{tabularx}
   \end{mdframed}%
   \nopagebreak[2]
 }
@@ -246,29 +240,6 @@
 \robustify{\circled}
 \newsavebox{\mapbox}
 \savebox{\mapbox}{\includegraphics{map.png}} 
-% \newlength{\mapwidth}
-% \newlength{\mapheight}
-% \settowidth{\mapwidth}{\usebox{\mapbox}}
-% \settoheight{\mapheight}{\usebox{\mapbox}}
-% \newcommand{\map}{
-%   \begin{center}
-%     \setlength{\unitlength}{1.0in}\large
-%     \begin{picture}(7.681,8.194)  % map is 7.681 by 8.194 inches
-%       \put(0,0){\usebox{\mapbox}}
-%       \put(-.2,1.4){\circled{1}\hspace{0.75em}Interstate 89 is a quarter mile this way}
-%       \put(-.2,1.05){\circled{2}\hspace{0.75em}Enter here, park on your left}
-%       \put(-.2,.7){\circled{3}\hspace{0.75em}McCarthy Arts building}
-%       \put(-.2,.35){\circled{4}\hspace{0.75em}Saint Edmunds Hall (STE)}
-%       \put(-.2,.0){\circled{5}\hspace{0.75em}Jeanmarie Hall (JEM)}
-%       \put(-.2,-0.35){\circled{6}\hspace{0.75em}Dion Center; register here}
-%       \put(1,8){\circled{1}}
-%       \put(1.6,5.3){\circled{2}}
-%       \put(2.6,4.8){\circled{3}}
-%       \put(2.55,3.7){\circled{4}}
-%       \put(1.56,3.7){\circled{5}}
-%       \put(4,3.5){\circled{6}}
-%     \end{picture}
-%   \end{center}}
 
 % For campus map
 
@@ -276,6 +247,16 @@
 % #1  number; 1, 2, etc
 % #2  text; "Register here"
 \newcommand{\mapkey}[2]{\circled{#1}\hspace{0.75em}#2}
+
+% For parking
+\newcommand{\parkingP}{\textsf{\textbf{P}}}
+\newcommand{\parking}{% http://tex.stackexchange.com/a/218842/339
+  \tikz[baseline=(char.base)]{%
+    \node[shape = rectangle, fill=white, draw, inner sep = 2.8pt]
+    % (char) {\phantom{\ifblank{#1}{#2}{#1}}};%
+    (char) {{\parkingP}};%
+    \node at (char.center) {{\parkingP}};}}
+\robustify{\circled}
 
 % Campus map
 %  LaTeX picture environment drawn on top of a graphic
