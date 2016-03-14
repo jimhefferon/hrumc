@@ -128,7 +128,7 @@
 \newcommand{\abstracttitle}[1]{\textit{#1}}
 \newcommand{\abstractlevel}[1]{\textrm{(Level~#1)}}
 \newcommand{\abstractspeaker}[1]{\textsc{#1}}
-\newcommand{\affiliation}[1]{ (#1)}
+\newcommand{\affiliation}[1]{(#1)}
 \newcommand{\abstractsubject}[1]{\textrm{#1}}
 
 % Abstract
