@@ -1,0 +1,65 @@
+
+The available rooms with the largest capacity are:
+1.   STE 104 53
+2.   STE 102 53
+3.   JEM 378 46
+4.   JEM 166 45
+5.   JEM 362 44
+6.   JEM 364 44
+7.   JEM 375 44
+8.   JEM 168 43
+9.   JEM 281 42
+10.  JEM 380 40
+11.  JEM 377 37
+12.  JEM 389 37    
+13.  JEM 373 35
+
+
+These are the sessions.  I'll order them by guesses popularity in the comment.
+
+\sessionhead{One}
+\session{Abstract Algebra I}{STE 106}{Fred McGuilicuddy} % 10 
+\session{Analysis}{STE 106}{Fred McGuilicuddy}           % 12
+\session{Applied Mathematics Ia}{STE 106}{Fred McGuilicuddy} % 3
+\session{Applied Mathematics Ib}{STE 106}{Fred McGuilicuddy} % 4
+\session{Combinatorics I}{STE 107}{Fred McGuilicuddy}       % 6
+\session{Differential Equations I}{STE 106}{Fred McGuilicuddy} % 5
+\session{Geometry I}{STE 106}{Fred McGuilicuddy}     % 9
+\session{Linear Algebra}{STE 106}{Fred McGuilicuddy}  % 11
+\session{Number Theory I}{STE 106}{Fred McGuilicuddy}  % 8
+\session{Paradoxes}{STE 106}{Fred McGuilicuddy}  % 7
+\session{Statistics Ia}{STE 106}{Fred McGuilicuddy}  % 1
+\session{Statistics Ib}{STE 106}{Fred McGuilicuddy}  % 2
+\session{Topology}{STE 106}{Fred McGuilicuddy}    % 13
+
+
+\sessionhead{Two}
+\session{Abstract Algebra II}{STE 106}{Fred McGuilicuddy} % 13
+\session{Applied Math IIa}{STE 107}{Fred McGuilicuddy}  % 3
+\session{Applied Math IIb}{STE 107}{Fred McGuilicuddy}  % 4
+\session{Combinatorics II}{STE 107}{Fred McGuilicuddy}  % 6
+\session{Computer Science}{STE 106}{Fred McGuilicuddy}  % 12
+\session{Differential Equations II}{STE 107}{Fred McGuilicuddy} % 5
+\session{Geometry II}{STE 106}{Fred McGuilicuddy} % 9
+\session{Graph Theory}{STE 107}{Fred McGuilicuddy}  % 10
+\session{Graph Theory and Topology}{STE 107}{Fred McGuilicuddy} % 11
+\session{Mathematics Education I}{STE 107}{Fred McGuilicuddy} % 8
+\session{Number Theory II}{STE 107}{Fred McGuilicuddy}  % 7
+\session{Statistics IIa}{STE 107}{Fred McGuilicuddy}  % 1
+\session{Statistics IIb}{STE 107}{Fred McGuilicuddy}  % 2
+
+
+
+\sessionhead{Three}
+\session{Applied Math IIIa}{STE 106}{Fred McGuilicuddy} % 2
+\session{Applied Math IIIb}{STE 106}{Fred McGuilicuddy} % 3
+\session{Combinatorics III}{STE 106}{Fred McGuilicuddy} % 5
+\session{Differential Equations III}{STE 106}{Fred McGuilicuddy} % 4
+\session{Fractals and Chaos}{STE 106}{Fred McGuilicuddy} % 11
+\session{History of Mathematics}{STE 106}{Fred McGuilicuddy} % 9
+\session{Knot Theory}{STE 106}{Fred McGuilicuddy}         % 12
+\session{Mathematics Education II}{STE 106}{Fred McGuilicuddy}  % 7
+\session{Number Theory III}{STE 106}{Fred McGuilicuddy}   % 6
+\session{Probability and Statistics}{STE 106}{Fred McGuilicuddy} % 8
+\session{Statistics III}{STE 106}{Fred McGuilicuddy}       % 1
+\session{Tropical Mathematics}{STE 106}{Fred McGuilicuddy}  % 10

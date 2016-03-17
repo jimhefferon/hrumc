@@ -109,6 +109,7 @@
     filecolor=black,      % color of file links
     urlcolor=black           % color of external links
 }
+\RequirePackage{breakurl}
 
 
 % ........ Abstracts .............
@@ -328,7 +329,7 @@
     \end{flushleft} % \vspace{0.7ex}
     \hspace*{2em}
     The full program, including the abstracts, is available
-    at \href{#1}{#1}.%
+    at \burl{#1}.% allows the link to be line-broken vs \href{#1}{#1}.% 
   }}
 
 
@@ -347,19 +348,18 @@
 % ........ Welcome ..............
 \newcommand{\welcome}[2]{
 \begin{flushleft}
-  \Large\textbf{Welcome everyone!}
+  \color{standoutcolor}\Large\textbf{Welcome everyone!}
 \end{flushleft}
 Welcome to the #1\ annual 
-Hudson River Undergraduate Mathematics Conference (HRUMC), a
-mathematics conference designed primarily with students in mind. 
-Whether you are a student attending your first
+Hudson River Undergraduate Mathematics Conference (HRUMC). 
+Whether you are a student at your first
 conference or an experienced speaker, we hope that you will find 
-this conference beneficial, rewarding, and inspiring, 
-and that you will make new friends and connections in the mathematics community.
-We hope to establish an atmosphere that sends
+today beneficial, rewarding, and inspiring, 
+and that you will make new friends and connections.
+Our aim is to build an atmosphere that includes
 the message, ``We are glad that you are joining the mathematics community!''
 
-We feature fifteen minute talks by students and faculty, 
+HRUMC features fifteen minute talks by students and faculty, 
 and a longer plenary address.
 Each year, we invite students and faculty from  
 universities and colleges in New York and New England to send abstracts
@@ -367,42 +367,49 @@ for the short talks.
 These describe research projects,
 independent study projects, or any other independent work by students 
 and faculty. 
-We hope that you will attend many talks that sound interesting to you, 
-and that you will learn a great deal.
 
-If you are at this conference for the first time then
-spend a little time with this program and identify some talks that 
+If you are a first time attendee then
+spend a little time with this program.
+Study the titles and the abstracts to identify some talks that 
 grab your interest. 
-Plan on which talks you will attend.
-We keep a strict schedule to coordinate the sessions,
-so if your next chosen talk is in a different room then 
-you know your present talk will end on time and your next one will 
-start when it says it will.
-If you have a question, please, just ask someone. 
-
-Each of the short talks is designated as Level~1 or Level~2.
+Note that each of the short talks is marked as Level~1 or Level~2.
 The Level~1 talks are accessible to all mathematics students and faculty, 
 while Level~2 talks are aimed at advanced undergraduates and faculty. 
 
-Also check out the website for information about previous meetings, 
+Note also that each session has a Chair. 
+One of their jobs is to keep all talks strictly to the schedule.
+This means that you can easily move from room to room to see talks~--- 
+you know that each talk that you attend will end on time, 
+and each next one will start when it says it will.
+
+If you are a first time presenter then we especially say, ``Welcome!''
+Giving a presentation can be daunting, but is also energizing.
+The session Chair will be able to help with any questions that you have, 
+including any technology questions.
+
+Presenter or attendee,
+we hope you enjoy the conference
+and that you will you will learn a great deal.
+If you have any questions, please, just ask someone. 
+
+The first HRUMC was held in 1994 at Siena College in Loudonville, NY.
+You can check out the website for information about previous meetings, 
 pictures from this year's
 conference, as well as information about next year's conference:
 \href{http://www.skidmore.edu/hrumc}{http://www.skidmore.edu/hrumc}.
 
-The first HRUMC was held in 1994 at Siena College in Loudonville, NY.
-Without the dedication, diligence, talent, and enthusiasm of the local
+Without the dedication, diligence, and enthusiasm of the local
 organizers and the student and faculty participants over the years, 
 HRUMC would not have become an annual tradition. 
 This conference has been successful because the students and faculty of the 
 participating institutions have made it successful. 
-We are delighted that you are here and hope you enjoy the conference.
 Keep in mind as you listen to the talks 
 that whether you are speaking this year or not, you can look forward to
 sharing your work at next year's conference, 
 hosted by #2.}
 
 \newcommand{\support}[1]{%
-{\large\bfseries
+{\bfseries
 #1 % 
 We also thank all of the
 student and faculty volunteers who contributed their time, talents, energy, 
