@@ -112,6 +112,10 @@
 \RequirePackage{breakurl}
 
 
+% ...... Additional packages .............
+\usepackage{xfrac}
+
+
 % ........ Abstracts .............
 \RequirePackage{enumitem}
 \RequirePackage{ragged2e}  % for RaggedRight
@@ -300,14 +304,6 @@
 
 
 % ........ Inside cover ...........
-\newcommand{\wifi}[2]{%
-  \begin{flushleft}
-    \large\bfseries Wifi information
-  \end{flushleft}
-  \hspace*{2em}Use the network ``#1'' 
-     with the password ``#2''.
-}
-
 \newenvironment{scheduleoverview}{%
   \begin{flushleft}
     \large\textbf{Schedule overview}
@@ -321,15 +317,34 @@
   % \end{center}
 }
 
+% Wifi information
+\newcommand{\wifi}[2]{%
+  \begin{flushleft}
+    \large\bfseries Wifi
+  \end{flushleft}
+  \hspace*{2em}% 
+  \parbox{0.9\textwidth}{Use the network ``#1'' with the password ``#2''.}
+}
+
+
 % Notice of where to find the abstracts
-\newcommand{\fullprogram}[1]{%
-  \ifbool{PrintAbstracts}{}{%
+\newcommand{\fullprogram}[2]{%
+  \ifbool{PrintAbstracts}{%
     \begin{flushleft}
-      \large\textbf{Program PDF}
+      \large\textbf{Abridged program}
     \end{flushleft} % \vspace{0.7ex}
-    \hspace*{2em}
+    \hspace*{2em}% 
+    \parbox{0.9\textwidth}{% \RaggedRight
+    A brief version of this program, not including the abstracts, is available
+    at \burl{#1}.}% allows the link to be line-broken vs \href{#1}{#1}.% 
+  }{%
+    \begin{flushleft}
+      \large\textbf{Complete program}
+    \end{flushleft} % \vspace{0.7ex}
+    \hspace*{2em}% 
+    \parbox{0.9\textwidth}{% \RaggedRight
     The full program, including the abstracts, is available
-    at \burl{#1}.% allows the link to be line-broken vs \href{#1}{#1}.% 
+    at \burl{#2}.}% allows the link to be line-broken vs \href{#1}{#1}.% 
   }}
 
 
@@ -370,9 +385,9 @@ and faculty.
 
 If you are a first time attendee then
 spend a little time with this program.
-Study the titles and the abstracts to identify some talks that 
+Study the schedule of short talks to identify some that 
 grab your interest. 
-Note that each of the short talks is marked as Level~1 or Level~2.
+Note that each of these is marked as Level~1 or Level~2.
 The Level~1 talks are accessible to all mathematics students and faculty, 
 while Level~2 talks are aimed at advanced undergraduates and faculty. 
 
@@ -392,10 +407,11 @@ we hope you enjoy the conference
 and that you will you will learn a great deal.
 If you have any questions, please, just ask someone. 
 
-The first HRUMC was held in 1994 at Siena College in Loudonville, NY.
-You can check out the website for information about previous meetings, 
+The first HRUMC was held at Siena College in 1994.
+For information about previous meetings, 
 pictures from this year's
-conference, as well as information about next year's conference:
+conference, as well as information about next year's conference
+you can check out the web site:
 \href{http://www.skidmore.edu/hrumc}{http://www.skidmore.edu/hrumc}.
 
 Without the dedication, diligence, and enthusiasm of the local

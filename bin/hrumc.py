@@ -38,6 +38,7 @@ LATEX_TEMPLATE = r"""\documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
   \DeclareUnicodeCharacter{00A0}{~} %% no break space
 \usepackage{amsmath,amssymb} 
+\usepackage{xfrac}
 \usepackage[T1]{fontenc} 
 \usepackage{fbb}
 
@@ -79,6 +80,7 @@ LATEX_ALL_TEMPLATE_TOP = r"""\documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
   \DeclareUnicodeCharacter{00A0}{~} %% no break space
 \usepackage{amsmath,amssymb} 
+\usepackage{xfrac}
 \usepackage[T1]{fontenc} 
 \usepackage{fbb}
 \usepackage[top=0.5in,bottom=0.75in,right=0.5in]{geometry}
@@ -121,6 +123,7 @@ LATEX_ROOMS_TEMPLATE_TOP = r"""\documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
   \DeclareUnicodeCharacter{00A0}{~} %% no break space
 \usepackage{amsmath,amssymb} 
+\usepackage{xfrac}
 \usepackage[T1]{fontenc} 
 \usepackage{fbb}
 \usepackage[top=0.75in,bottom=0.75in,right=1in,left=1in]{geometry}
@@ -383,8 +386,8 @@ def main (args):
     except:
         pass
     filelist.sort()
-    # for fn in filelist:
-    #     latex_each(fn, pdfdirname=OUTPUT_DIR_NAME)
+    for fn in filelist:
+        latex_each(fn, pdfdirname=OUTPUT_DIR_NAME)
     latex_all('hrumcall',filelist)
     make_rooms(args['file'],filelist)
 
