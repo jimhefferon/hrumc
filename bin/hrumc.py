@@ -191,9 +191,116 @@ LATEX_ROOMS_TEMPLATE_TOP = r"""\documentclass[12pt]{article}
 """
 
 
+LATEX_CHAIR_TEMPLATE = r"""\documentclass[12pt]{article}
+\usepackage{cmap}
+\usepackage[utf8]{inputenc}
+  \DeclareUnicodeCharacter{00A0}{~} %% no break space
+\usepackage{amsmath,amssymb} 
+\usepackage{xfrac}
+\usepackage[T1]{fontenc} 
+\usepackage{fbb}
+\usepackage[top=0.75in,bottom=0.75in,right=1in,left=1in]{geometry}
+
+\usepackage{ragged2e} %% for RaggedRight
+\usepackage{enumitem} %% for description
+
+\newcommand{\sessionhead}[1]{\vspace*{3ex}\begin{center}\Large \textbf{Chair Instructions for Parallel Session #1}\end{center}}
+\newcommand{\session}[3]{\begin{center}{\large \textbf{Session name: #1}} \\[1ex]
+  {\large \textbf{Room: #2}} \\[1ex] {\large \textbf{Chair: #3}}\end{center}\vspace*{0ex}}
+
+\newcommand{\instructions}[3]{\setlength{\parindent}{2em}\setlength{\parskip}{.5ex}
+Thank you for volunteering to be session chair.
+\par
+At the start of the session say, ``Welcome to #1.
+I am the session chair, #3.
+A word for speakers: we must keep strictly to the schedule so be aware 
+that I will warn you when there 
+are five minutes left by holding up five fingers, etc.''
+\par
+As chair, your main job is to keep the session on time.
+You need an accurate clock, such as your cell phone.
+When there are five minutes left, hold up five fingers and make sure the speaker sees you.
+When there are two minutes left, hold up two fingers, again making sure that the speaker sees you.
+When there is one minute left, unless the speaker is obviously finishing, then say, ``Sorry for interrupting but there is only one minute left, it is time to please wrap up.''
+If the speaker threatens to run over time then stand and say, ``I'm afraid that the time for this part of the session is complete and people need to be able to move to their next session.  Anyone with questions can approach the present speaker later.   Let us thank the speaker.''
+\par
+In addition to managing the time, you should introduce each speaker before they start, and thank them at the end, with a brief applause.  
+If there is time at the end, ask if there are any questions.
+In case there are no questions, during the talk you should prepare one.
+After any questions, again thank the speaker and move to the next presentation.
+\par
+Finally, if there are technology problems then you can either grab a student volunteer in the hallway or dial extension 2959 on the room phone.
+\par\vspace*{2ex}
+\begin{center}\large\textbf{Session schedule}\end{center}}
+
+\newcommand{\at}[2]{%
+  \begin{description}[font=\normalfont,leftmargin=2em,labelwidth=0em,topsep=0ex plus 1pt] 
+    \RaggedRight
+    \item[\abstracttime{#1}]
+    \input{#2}
+  \end{description}
+}
+\newcommand{\abstracttime}[1]{#1}
+% Times
+\newcommand{\timeformat}[2]{#1:#2}
+\newcommand{\Ia}{\timeformat{10}{00}-\timeformat{10}{15}}
+\newcommand{\Ib}{\timeformat{10}{20}-\timeformat{10}{35}}
+\newcommand{\Ic}{\timeformat{10}{40}-\timeformat{10}{55}}
+
+\newcommand{\IIa}{\timeformat{1}{40}-\timeformat{1}{55}}
+\newcommand{\IIb}{\timeformat{2}{00}-\timeformat{2}{15}}
+\newcommand{\IIc}{\timeformat{2}{20}-\timeformat{2}{35}}
+\newcommand{\IId}{\timeformat{2}{40}-\timeformat{2}{55}}
+
+\newcommand{\IIIa}{\timeformat{3}{30}-\timeformat{3}{45}}
+\newcommand{\IIIb}{\timeformat{3}{50}-\timeformat{4}{05}}
+\newcommand{\IIIc}{\timeformat{4}{10}-\timeformat{4}{25}}
+
+\newcommand{\authorref}[2]{#1 #2}
+
+\newcommand{\abstracttitle}[1]{\textbf{#1}}
+\newcommand{\abstractlevel}[1]{\textrm{Level~#1}}
+\newcommand{\abstractspeaker}[1]{\textsc{#1}}
+\newcommand{\affiliation}[1]{ (#1)}
+
+%% Abstract 
+%% #1 title 
+%% #2 author 
+%% #3 level 
+%% #4 subject 
+%% #5 abstract body
+\renewcommand{\abstract}[5]{%% \newcommand is \long by default
+   \abstracttitle{#1} 
+   \abstractspeaker{#2} 
+   \abstractlevel{#3}  
+} 
+%% Notes  Used in some other docs to show whether presenter has requested 
+%% special facilities, etc.
+%%  #1 The notes
+\newcommand{\notes}[1]{\relax}
+
+\newenvironment{room}[1]{%
+  \vspace*{1ex plus 0.5fill}
+  \begin{center}
+    \fontsize{40}{65}\selectfont 
+    Session chair instructions: \\
+    #1
+  \end{center}
+  \vspace*{1ex plus 1fill}
+}{%
+  \clearpage
+}
+
+\pagestyle{empty}
+\setlength{\parindent}{2em}
+\begin{document}\RaggedRight
+"""
+
+
 def make_rooms(inputfn, filelist, outputfn="rooms"):
     """Make the signs for the rooms.
-    Assumes this is the 'include' directory, holding all the .tex abstracts.
+    Assumes this is run from the 'input' directory, holding all the .tex 
+    abstracts.
     """
     starting_dir = os.getcwd()
     # make a tmp dir
@@ -238,6 +345,9 @@ def make_rooms(inputfn, filelist, outputfn="rooms"):
     fin.close()
     if DEBUG:
         print("DEBUG: first pass Rooms:",rooms)
+    chairs = {}
+    for k in rooms:
+        chairs[k] = rooms[k].copy()
     # populate the rooms
     fin = open(starting_dir+'/../'+inputfn,'r')
     parallelsessionnumber = None
@@ -257,6 +367,7 @@ def make_rooms(inputfn, filelist, outputfn="rooms"):
                     parallelsessionnumber = m.group(1)
                     for k in rooms:
                         rooms[k].append("\\sessionhead{"+parallelsessionnumber+"}")
+                        chairs[k].append("\\clearpage\\sessionhead{"+parallelsessionnumber+"}")
                 else:
                     raise HRUMCException('Expected a match for the line number '+str(linenumber)+', session head line '+line)
             elif line.startswith("\\session{"):
@@ -264,6 +375,8 @@ def make_rooms(inputfn, filelist, outputfn="rooms"):
                 if m:
                     sessionname, sessionroom, sessionchair = m.group(1), m.group(2), m.group(3)
                     rooms[sessionroom].append("\\session{%s}{%s}{%s}" % (sessionname,sessionroom,sessionchair))
+                    chairs[sessionroom].append("\\session{%s}{%s}{%s}\n" % (sessionname,sessionroom,sessionchair))
+                    chairs[sessionroom].append("\\instructions{%s}{%s}{%s}\n" % (sessionname,sessionroom,sessionchair))
                 else:
                     raise HRUMCException('Expected a match for line number '+str(linenumber)+', the session line '+line)
             elif line.startswith("\\at{"):
@@ -272,6 +385,7 @@ def make_rooms(inputfn, filelist, outputfn="rooms"):
                 if m:
                     attime, atabstract = m.group(1), m.group(2)
                     rooms[sessionroom].append(r"\at{%s}{%s}" % (attime,atabstract))
+                    chairs[sessionroom].append(r"\at{%s}{%s}" % (attime,atabstract))
                 else:
                     raise HRUMCException('Expected a match for line number '+str(linenumber)+', the at line '+line)
             elif line.startswith("% ===== END PARALLEL SESSIONS"):
@@ -294,8 +408,22 @@ def make_rooms(inputfn, filelist, outputfn="rooms"):
         print(r"\end{room}", file=fout)
     print(r"\end{document}", file=fout)
     fout.close()
-    # LaTeX that file
+    fout = open(outputfn+'chair.tex','w')
+    print(LATEX_CHAIR_TEMPLATE, file=fout)
+    for k in rooms:
+        print(r"\begin{room}{%s}" % (k,), file=fout)
+        print("\n".join(chairs[k]), file=fout)
+        print(r"\end{room}", file=fout)
+    print(r"\end{document}", file=fout)
+    fout.close()
+    # LaTeX the files
     jobname = os.path.splitext(os.path.basename(outputfn))[0]
+    if VERBOSE:
+        print("  LaTeX-ing the file",jobname+'.')
+    subprocess.call(['pdflatex',jobname],stdout=subprocess.DEVNULL)
+    subprocess.call(['pdflatex',jobname],stdout=subprocess.DEVNULL)
+    shutil.copyfile(jobname+'.pdf',starting_dir+'/'+jobname+'.pdf')
+    jobname = os.path.splitext(os.path.basename(outputfn+'chair'))[0]
     if VERBOSE:
         print("  LaTeX-ing the file",jobname+'.')
     subprocess.call(['pdflatex',jobname],stdout=subprocess.DEVNULL)
