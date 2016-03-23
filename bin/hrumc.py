@@ -6,7 +6,7 @@ also generate a single doc with all abstracts, and also a doc of information
 for each room, incuding instructions for session chairs and a sign for the
 door.
 """
-__version__ = '0.9.9'
+__version__ = '1.0.0'
 __author__ = 'Jim Hefferon jhefferon at smcvt.edu'
 __license__ = 'GPL 3'
 

@@ -4,12 +4,28 @@ README file for HRUMC
 LaTeX files for program for the Hudson River Undergraduate Mathematics 
 Research Conference.
 
-Abstracts at put one per file, as in jones1.tex.  
+1) For the conference program:
 
-To get a printout without abstracts issue:
+Put abstracts one per file, using the stub.tex file, in the input/ 
+subdirectory. I found it convenient to use the author's last name: 
+input/hefferon.tex.  Enter them into this directory's hrumc2016.tex file
+(make a copy, obviously) like:
+  \at{Ib}{hefferon}
+to mean second time slot in the first parallel session. 
+
+To get a printout without abstracts issue (from this directory):
   pdflatex hrumc2016
 To get a printout with abstracts, do these four:
   pdflatex "\def\printabstracts{}\input{hrumc2016}"
   pdflatex "\def\printabstracts{}\input{hrumc2016}"
   makeindex -s hrumc.ist hrumc2016
   pdflatex "\def\printabstracts{}\input{hrumc2016}"
+
+2) For registration and evaluation forms, 
+  pdflatex registration
+
+3) For a list of all abstracts, and for a .pdf of each abstract individually,
+and for a list of documents to go in each room.
+  cd input
+  python3 ../bin/hrumc.py 
+(that program takes the -h option to see the possibilities). 
