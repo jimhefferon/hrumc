@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Run the abstracts from the Hudson River Undergrad Math Conference.
+Run the abstracts from the Hudson River Undergrad Math Conference.  Optionally 
+also generate a single doc with all abstracts, and also a doc of information 
+for each room, incuding instructions for session chairs and a sign for the
+door.
 """
-__version__ = '0.9.5'
+__version__ = '0.9.9'
 __author__ = 'Jim Hefferon jhefferon at smcvt.edu'
 __license__ = 'GPL 3'
 
@@ -191,7 +194,7 @@ LATEX_ROOMS_TEMPLATE_TOP = r"""\documentclass[12pt]{article}
 """
 
 
-LATEX_CHAIR_TEMPLATE = r"""\documentclass[12pt]{article}
+LATEX_CHAIR_TEMPLATE = r"""\documentclass[11pt]{article}
 \usepackage{cmap}
 \usepackage[utf8]{inputenc}
   \DeclareUnicodeCharacter{00A0}{~} %% no break space
@@ -199,7 +202,7 @@ LATEX_CHAIR_TEMPLATE = r"""\documentclass[12pt]{article}
 \usepackage{xfrac}
 \usepackage[T1]{fontenc} 
 \usepackage{fbb}
-\usepackage[top=0.75in,bottom=0.75in,right=1in,left=1in]{geometry}
+\usepackage[top=0.5in,bottom=0.5in,right=1in,left=1in]{geometry}
 
 \usepackage{ragged2e} %% for RaggedRight
 \usepackage{enumitem} %% for description
@@ -213,21 +216,28 @@ Thank you for volunteering to be session chair.
 \par
 At the start of the session say, ``Welcome to #1.
 I am the session chair, #3.
-A word for speakers: we must keep strictly to the schedule so be aware 
-that I will warn you when there 
-are five minutes left by holding up five fingers, etc.''
+A word for speakers: we must keep strictly to the schedule.  
+Each talk lasts fifteen minutes, with a few minutes afterward for questions.  
+I will hold up five fingers to let you know when five minutes are left, 
+and one finger for one minute.
+Any overrun will come from the question period.''
 \par
-As chair, your main job is to keep the session on time.
+As session chair, your main job is to keep the session on time.
 You need an accurate clock, such as your cell phone.
 When there are five minutes left, hold up five fingers and make sure the speaker sees you.
-When there are two minutes left, hold up two fingers, again making sure that the speaker sees you.
-When there is one minute left, unless the speaker is obviously finishing, then say, ``Sorry for interrupting but there is only one minute left, it is time to please wrap up.''
-If the speaker threatens to run over time then stand and say, ``I'm afraid that the time for this part of the session is complete and people need to be able to move to their next session.  Anyone with questions can approach the present speaker later.   Let us thank the speaker.''
+When there is one minutes left, hold up one finger.
+If the speaker runs over by two minutes then say, ``Sorry for interrupting but it is time to wrap up in a sentence or two.''
+If the speaker is four minutes over then stand and say, ``I'm afraid that the time is complete and people need to be able to move to their next session.  Anyone with questions can approach the speaker later.''
 \par
-In addition to managing the time, you should introduce each speaker before they start, and thank them at the end, with a brief applause.  
-If there is time at the end, ask if there are any questions.
+If a speaker ends early, or if a speaker does not show, 
+do not start the next speaker early.
+Instead wait for the scheduled time.
+\par
+In addition to managing the time, you should introduce each speaker before they start (try to speak to them between talks to find who is talking in a multi-author presentation and to see how to pronounce names).
+After each talk, thank the speaker and initiate a brief applause.  
+If there is time before the next speaker, ask if there are any questions.
 In case there are no questions, during the talk you should prepare one.
-After any questions, again thank the speaker and move to the next presentation.
+After questions, again thank the speaker and introduce the next talk.
 \par
 Finally, if there are technology problems then you can either grab a student volunteer in the hallway or dial extension 2959 on the room phone.
 \par\vspace*{2ex}
@@ -502,7 +512,7 @@ def latex_all(jobname, filelist):
 
 OUTPUT_DIR_NAME = os.getcwd()+'/output'
 #==================================================================
-def main (args):
+def main(args):
     # create a clean output dir
     if os.path.isdir(OUTPUT_DIR_NAME):
         shutil.rmtree(OUTPUT_DIR_NAME)
@@ -514,17 +524,23 @@ def main (args):
     except:
         pass
     filelist.sort()
-    for fn in filelist:
-        latex_each(fn, pdfdirname=OUTPUT_DIR_NAME)
-    latex_all('hrumcall',filelist)
-    make_rooms(args['file'],filelist)
+    if not(args['nopdfs']):
+        for fn in filelist:
+            latex_each(fn, pdfdirname=OUTPUT_DIR_NAME)
+    if not(args['noabstractlist']):
+        latex_all('hrumcall',filelist)
+    if not(args['noroomlist']):
+        make_rooms(args['file'],filelist)
 
 #==================================================================
 if __name__ == '__main__':
     try:
         start_time = time.time()
         parser = argparse.ArgumentParser(description=globals()['__doc__'])
-        parser.add_argument('-f','--file', action='store', default=DEFAULT_PROGRAM_NAME,help='name of the .tex of the program for the conference')
+        parser.add_argument('-a','--noabstractlist', action='store_true', default=False, help='suppress generation of a single list of all abstracts')
+        parser.add_argument('-f','--file', action='store', default=DEFAULT_PROGRAM_NAME,help='name of the .tex of the program for the conference; default: '+DEFAULT_PROGRAM_NAME)
+        parser.add_argument('-p','--nopdfs', action='store_true', default=False, help='suppress generation of separate pdfs for each abstract')
+        parser.add_argument('-r','--noroomlist', action='store_true', default=False, help='suppress the generation of information sheets for each room')
         parser.add_argument('-v','--version', action='version', version='%(prog)s '+globals()['__version__'])
         parser.add_argument('-D', '--debug', action='store_true', default=False, help='run debugging code')
         parser.add_argument('-V', '--verbose', action='store_true', default=False, help='verbose output')
