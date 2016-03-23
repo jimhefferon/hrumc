@@ -1,0 +1,147 @@
+\documentclass[12pt,oneside]{article}
+\usepackage[left=1in,right=1in,top=0.75in,bottom=0.75in]{geometry}
+\usepackage[utf8]{inputenc} % allow utf input files
+  \DeclareUnicodeCharacter{00A0}{~} %% no break space
+\usepackage{cmap}  % make PDF file copy-and-paste-able
+
+\usepackage[T1]{fontenc}
+\usepackage{fbb}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{standoutcolor}{HTML}{8A0917}
+\definecolor{backgroundcolor}{HTML}{ACCFCC}
+\definecolor{whitecolor}{HTML}{FFFFFF}
+\definecolor{graycolor}{HTML}{B8AE9C}
+\definecolor{bordercolor}{HTML}{595241}
+
+\usepackage{ragged2e}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\newcommand{\spacer}{\hspace{1.15em}}
+\newcommand{\choice}[1]{\spacer\mbox{#1}}
+
+\setlength{\unitlength}{1in} % for line to fill out affiliation
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0ex}
+\pagestyle{empty}
+\begin{document}\thispagestyle{empty}
+\newcommand{\body}{%
+\RaggedRight
+\begin{center} % \bfseries
+  \Large HRUMC Registration \\[0.5ex]
+  \Large Welcome to the conference!
+\end{center}
+
+Keeping track of some simple facts about
+our participants helps us, for example when seeking grants.
+All of the information here is optional and
+your answers are anonymous so that only aggregate data is used.
+We appreciate all of the data that you can provide.
+
+\vspace*{4ex}
+\textbf{Please circle the relevant categories}
+\begin{description}[font=\normalfont\itshape,
+  labelsep=1em]
+\item[Seniority:]
+  Faculty
+  \choice{Graduate student}
+  \choice{Undergraduate senior}
+  \choice{Undergraduate junior}
+  \choice{Undergraduate sophmore}
+  \choice{Undergraduate first year}
+  \choice{Other}
+
+\item[Attended HRUMC before?]
+    Yes 
+    \choice{No} 
+
+\item[Attended any mathematics conference before?]
+    Yes 
+    \choice{No} 
+
+\item[Gender:]
+  Female
+  \choice{Male}
+  \choice{Other}
+  % \begin{tabular}[t]{@{\hspace*{0.5em}}*{3}{p{3.25em}}}
+  %   Female &Male &Other
+  % \end{tabular}
+
+\item[Ethnicity:]
+    African American 
+    \choice{American Indian} 
+    \choice{Asian} 
+    \choice{Hispanic/Latino} 
+    \choice{Pacific Islander}
+    \choice{White}
+    \choice{Other}
+
+\item[Affiliation:]
+  Your school:\ \line(1,0){3} 
+\end{description}
+}
+\body
+\par\vspace{1ex plus 1fill}
+\body
+\newpage
+\newcommand{\comments}{%
+\par\hspace*{-\leftmargin}\textit{\hspace*{1em} Additional comments:}} %\par\rule{0em}{1in}}
+
+\RaggedRight
+\begin{center} % \bfseries
+  \Large HRUMC Evaluation\\[0.5ex]
+  \Large Thank you for attending!
+\end{center}
+Your feedback helps us understand how we are doing, and helps us 
+improve the conference.
+All of the information here is optional and
+your answers are anonymous.
+We appreciate any comments.
+
+\vspace*{4ex}
+\textbf{Please circle the relevant categories}
+\begin{description}[font=\normalfont\itshape,
+  labelsep=1em]
+\item[Seniority:]
+  Faculty
+  \choice{Graduate student}
+  \choice{Undergraduate senior}
+  \choice{Undergraduate junior}
+  \choice{Undergraduate sophmore}
+  \choice{Undergraduate first year}
+  \choice{Other}
+
+\item[Attended HRUMC before?]
+    Yes 
+    \choice{No} 
+
+\item[Rate the quality of the short talks that you heard:]
+  Excellent
+  \choice{Good}
+  \choice{Fair}
+  \choice{Poor}
+  \comments
+  \vspace*{1in}
+
+\item[Rate the quality of the keynote address:]
+  Excellent
+  \choice{Good}
+  \choice{Fair}
+  \choice{Poor}
+  \comments
+  \vspace*{1in}
+
+\item[Overall rating of the conference:]
+  Excellent
+  \choice{Good}
+  \choice{Fair}
+  \choice{Poor}
+  \comments
+  \vspace*{2in}
+
+% \item[What would you change?]
+%   \vspace*{.5in}
+
+% \item[You can use the back of this sheet for additional comments.]
+\end{description}
+\end{document}
