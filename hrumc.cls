@@ -370,11 +370,11 @@ Hudson River Undergraduate Mathematics Conference (HRUMC).
 Whether you are a student at your first
 conference or an experienced speaker, we hope that you will find 
 today beneficial, rewarding, and inspiring, 
-and that you will make new friends and connections.
+and that you will make new friends.
 Our aim is to build an atmosphere that includes
 the message, ``We are glad that you are joining the mathematics community!''
 
-HRUMC features fifteen minute talks by students and faculty, 
+This conference features fifteen minute talks by students and faculty, 
 and a longer plenary address.
 Each year, we invite students and faculty from  
 universities and colleges in New York and New England to send abstracts
@@ -384,15 +384,14 @@ independent study projects, or any other independent work by students
 and faculty. 
 
 If you are a first time attendee then
-spend a little time with this program.
-Study the schedule of short talks to identify some that 
+start by studying the short talks schedule to find some that 
 grab your interest. 
-Note that each of these is marked as Level~1 or Level~2.
-The Level~1 talks are accessible to all mathematics students and faculty, 
-while Level~2 talks are aimed at advanced undergraduates and faculty. 
+Each of these is marked as Level~1 or Level~2: 
+the Level~1 talks are accessible to everyone 
+while Level~2 talks are aimed at faculty and advanced students. 
 
-Note also that each session has a Chair. 
-One of their jobs is to keep all talks strictly to the schedule.
+Note that each session has a Chair, who
+keeps all presentations strictly to the schedule.
 This means that you can easily move from room to room to see talks~--- 
 you know that each talk that you attend will end on time, 
 and each next one will start when it says it will.
@@ -402,26 +401,19 @@ Giving a presentation can be daunting, but is also energizing.
 The session Chair will be able to help with any questions that you have, 
 including any technology questions.
 
-Presenter or attendee,
-we hope you enjoy the conference
-and that you will you will learn a great deal.
-If you have any questions, please, just ask someone. 
-
-The first HRUMC was held at Siena College in 1994.
+The first HRUMC was held at Siena College in 1994, and 
+now it is an annual tradition.
 For information about previous meetings, 
 pictures from this year's
 conference, as well as information about next year's conference
 you can check out the web site:
 \href{http://www.skidmore.edu/hrumc}{http://www.skidmore.edu/hrumc}.
 
-Without the dedication, diligence, and enthusiasm of the local
-organizers and the student and faculty participants over the years, 
-HRUMC would not have become an annual tradition. 
-This conference has been successful because the students and faculty of the 
-participating institutions have made it successful. 
-Keep in mind as you listen to the talks 
-that whether you are speaking this year or not, you can look forward to
-sharing your work at next year's conference, 
+Presenter or attendee,
+we hope that you enjoy the HRUMC
+and that you will you will learn a great deal.
+And, if you can, we hope to see you again,
+sharing your work, at next year's conference,  
 hosted by #2.}
 
 \newcommand{\support}[1]{%

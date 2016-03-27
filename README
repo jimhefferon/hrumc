@@ -9,7 +9,7 @@ Research Conference.
 Put abstracts one per file, using the stub.tex file, in the input/ 
 subdirectory. I found it convenient to use the author's last name: 
 input/hefferon.tex.  Enter them into this directory's hrumc2016.tex file
-(make a copy, obviously) like:
+(make a copy, obviously, and call is hrumcxxxx.tex) like:
   \at{Ib}{hefferon}
 to mean second time slot in the first parallel session. 
 

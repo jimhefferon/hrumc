@@ -1,0 +1,153 @@
+\documentclass[12pt,landscape]{article}
+\usepackage{cmap}
+\usepackage[utf8]{inputenc}
+  \DeclareUnicodeCharacter{00A0}{~} %% no break space
+\usepackage{amsmath,amssymb} 
+\usepackage[T1]{fontenc} 
+\usepackage{fbb}
+\usepackage[top=0.75in,bottom=0.75in,right=1in,left=1in]{geometry}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,trees}
+
+\newcommand{\leftToRightArrow}{% 
+  \makebox[0em][l]{\spacer %
+  \begin{tikzpicture}[scale=0.8, baseline=-0.1in]
+    \path[shade,draw] (0,0.75) -- (4,0.75)--(4,1)--(5,0)
+                       --(4,-1)--(4,-0.75)--(0,-0.75)--cycle;
+  \end{tikzpicture}}
+}
+\newcommand{\rightToLeftArrow}{% 
+  \makebox[0em][r]{%
+  \begin{tikzpicture}[scale=0.8, baseline=-0.1in]
+    \path[shade,draw] (5,0.75) -- (1,0.75)--(1,1)--(0,0)
+                       --(1,-1)--(1,-0.75)--(5,-0.75)--cycle;
+  \end{tikzpicture}\spacer}
+}
+\newcommand{\spacer}{\hspace*{1em}}
+\newcommand{\hrumc}{%
+  \begin{center}
+    \fontsize{60}{75}\selectfont HRUMC 
+  \end{center}}
+
+\newcommand{\jemWallI}{\vspace*{1ex}
+  \hrumc
+  \vspace*{1ex plus 1fill}
+  \renewcommand{\arraystretch}{3.2}
+  \begin{center} \Huge
+    \begin{tabular}{@{}c@{}}
+      {\renewcommand{\arraystretch}{1.2}\begin{tabular}{c}
+            Rest rooms, water fountain  \\
+            Up the small stairs, on your right
+          \end{tabular}} \leftToRightArrow  \\
+      \rightToLeftArrow {\renewcommand{\arraystretch}{1.2}\begin{tabular}{c}
+            STE 102 and STE 104  \\
+            Downstairs and across the quad
+          \end{tabular}}
+    \end{tabular}
+  \end{center}
+  \vspace*{1ex plus 1fill}
+}
+
+\newcommand{\jemWallII}{\vspace*{1ex}
+  \hrumc
+  \vspace*{1ex plus 1fill}
+  \renewcommand{\arraystretch}{3.2}
+  \begin{center} \Huge
+    \begin{tabular}{@{}c@{}}
+      \rightToLeftArrow
+      {\renewcommand{\arraystretch}{1.2}\begin{tabular}{c}
+            Rest rooms, water fountain  \\
+            Up the small stairs, on your right
+          \end{tabular}}  \\
+      {\renewcommand{\arraystretch}{1.2}\begin{tabular}{c}
+            STE 102 and STE 104  \\
+            Downstairs and across the quad
+          \end{tabular}}  \leftToRightArrow
+    \end{tabular}
+  \end{center}
+  \vspace*{1ex plus 1fill}
+}
+
+
+\newcommand{\toSte}{\vspace*{1ex}
+  \hrumc
+  \vspace*{1ex plus 1fill}
+  \renewcommand{\arraystretch}{3.2}
+  \begin{center} \Huge
+    \begin{tabular}{@{}c@{}}
+      \rightToLeftArrow
+      {\renewcommand{\arraystretch}{1.2}\begin{tabular}{c}
+            STE 102 and STE 104  \\
+            Left here, on your left
+          \end{tabular}}
+    \end{tabular}
+  \end{center}
+  \vspace*{1ex plus 1fill}
+}
+
+
+\newcommand{\toJem}{\vspace*{1ex}
+  \hrumc
+  \vspace*{1ex plus 1fill}
+  \renewcommand{\arraystretch}{3.2}
+  \begin{center} \Huge
+    \begin{tabular}{@{}c@{}}
+      {\renewcommand{\arraystretch}{1.2}\begin{tabular}{c}
+            All JEM rooms  \\
+            Outside, turn right, across the quad
+          \end{tabular}}
+    \end{tabular}
+  \end{center}
+  \vspace*{1ex plus 1fill}
+}
+
+
+\newcommand{\mac}{\vspace*{1ex}
+  \hrumc
+  \vspace*{1ex plus 1fill}
+  \renewcommand{\arraystretch}{3.2}
+  \begin{center} \Huge
+    \begin{tabular}{@{}c@{}}
+      \rightToLeftArrow
+      {\renewcommand{\arraystretch}{1.2}\begin{tabular}{c}
+            Women's rest room, water fountain
+          \end{tabular}}  \\
+      \rightToLeftArrow
+      {\renewcommand{\arraystretch}{1.2}\begin{tabular}{c}
+            Men's rest room  \\
+            Thru doors on right, on your right
+          \end{tabular}}  
+    \end{tabular}
+  \end{center}
+  \vspace*{1ex plus 1fill}
+}
+
+
+
+\pagestyle{empty}
+\begin{document}
+
+\jemWallI\clearpage
+\jemWallI\clearpage
+\jemWallI\clearpage
+\jemWallI\clearpage
+\jemWallI\clearpage
+\jemWallI\clearpage
+
+\jemWallII\clearpage
+\jemWallII\clearpage
+\jemWallII\clearpage
+\jemWallII\clearpage
+\jemWallII\clearpage
+\jemWallII\clearpage
+
+\toSte\clearpage
+\toSte\clearpage
+
+\toJem\clearpage
+
+\mac\clearpage
+\mac
+
+\end{document}
