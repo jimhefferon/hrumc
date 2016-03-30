@@ -199,6 +199,7 @@ LATEX_CHAIR_TEMPLATE = r"""\documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
   \DeclareUnicodeCharacter{00A0}{~} %% no break space
 \usepackage{amsmath,amssymb} 
+\usepackage[dvipsnames]{color}
 \usepackage{xfrac}
 \usepackage[T1]{fontenc} 
 \usepackage{fbb}
@@ -218,28 +219,31 @@ At the start of the session say, ``Welcome to #1.
 I am the session chair, #3.
 A word for speakers: we must keep strictly to the schedule.  
 Each talk lasts fifteen minutes, with a few minutes afterward for questions.  
-I will hold up five fingers to let you know when five minutes are left, 
+I will hold up five fingers when five minutes are left, 
 and one finger for one minute.
 Any overrun will come from the question period.''
 \par
-As session chair, your main job is to keep the session on time.
+As chair, your job is to keep the session on time.
 You need an accurate clock, such as your cell phone.
-When there are five minutes left, hold up five fingers and make sure the speaker sees you.
-When there is one minutes left, hold up one finger.
+When you hold up five fingers or one finger, make sure the speaker sees you.
 If the speaker runs over by two minutes then say, ``Sorry for interrupting but it is time to wrap up in a sentence or two.''
-If the speaker is four minutes over then stand and say, ``I'm afraid that the time is complete and people need to be able to move to their next session.  Anyone with questions can approach the speaker later.''
+If the speaker is four minutes over then stand and say, ``I'm afraid that the time is complete and people need to move to their next session.  
+Anyone with questions can approach the speaker later.''
 \par
 If a speaker ends early, or if a speaker does not show, 
-do not start the next speaker early.
-Instead wait for the scheduled time.
+do not start the next speaker until their scheduled time.
 \par
 In addition to managing the time, you should introduce each speaker before they start (try to speak to them between talks to find who is talking in a multi-author presentation and to see how to pronounce names).
 After each talk, thank the speaker and initiate a brief applause.  
-If there is time before the next speaker, ask if there are any questions.
-In case there are no questions, during the talk you should prepare one.
+If there is time, ask if there are any questions.
+In case there are no questions, you should have one ready.
 After questions, again thank the speaker and introduce the next talk.
 \par
-Finally, if there are technology problems then you can either grab a student volunteer in the hallway or dial extension 2959 on the room phone.
+Between talks you can display the page for #2 from
+http://joshua.smcvt.edu/hrumc/rooms.pdf on the screen.
+\par
+For technology problems either grab a student volunteer in the hallway or dial extension 2959 on the room phone.
+\colorbox{yellow}{(Log into classroom computers  as ``Student1'' with password ``TempUser!''.)}
 \par\vspace*{2ex}
 \begin{center}\large\textbf{Session schedule}\end{center}}
 
